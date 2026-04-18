@@ -65,7 +65,7 @@ Map the workflow on paper or in Miro before you touch n8n. Know what triggers it
 
 New workflows from every event get added to this library.
 
-Sign up at [ninathomas.ai/n8n_0422](https://ninathomas.ai/n8n_0422) to get future workflows delivered to your inbox and access the full People in the Loop resource library.
+Sign up at [peopleintheloop.app/n8n_0422](https://peopleintheloop.app/n8n_0422) to get future workflows delivered to your inbox and access the full People in the Loop resource library.
 
 ---
 
@@ -74,7 +74,7 @@ Sign up at [ninathomas.ai/n8n_0422](https://ninathomas.ai/n8n_0422) to get futur
 **Nina Thomas**
 AI Strategist & Educator | n8n Community Ambassador | Miro Hero Ambassador
 Founder, People in the Loop
-[ninathomas.ai](https://ninathomas.ai) · connect@ninathomas.ai · [linkedin.com/in/ninathomas](https://linkedin.com/in/ninathomas)
+[peopleintheloop.app](https://peopleintheloop.app) · connect@peopleintheloop.app · [linkedin.com/in/ninathomas](https://linkedin.com/in/ninathomas)
 
 **Alicia Graham**
 AI Economist | n8n Ambassador
