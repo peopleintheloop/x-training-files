@@ -16,8 +16,8 @@ These workflow files were built live at this event. Everything here is ready to 
 |------|-------------|
 | `level1-rss-to-email.json` | Pulls a trending news article from an RSS feed, writes 3 social media posts via Claude, and sends them to your email |
 | `level2-brand-voice-rss-to-email.json` | Same workflow with a Claude system prompt that writes posts in your brand voice |
-| `claude-brand-voice-prompt.md` | The brand voice system prompt template — fill it out once and paste into a Claude Project |
-| `claude-skill.md` | A Claude Project system prompt that turns Claude into your personal n8n assistant |
+| `claude-brand-voice-prompt.md` | The brand voice system prompt template — fill it out once and paste into the Claude Model node system message |
+| `claude-skill.md` | A Claude Project system prompt that turns Claude into your personal n8n assistant (bonus take-home) |
 
 ---
 
@@ -61,11 +61,17 @@ Map the workflow on paper or in Miro before you touch n8n. Know what triggers it
 
 ---
 
-## Get More Workflows
+## Get All Files From This Event
+
+All files, import-ready workflows, and setup instructions are at:
+
+**[peopleintheloop.app/n8n_0422](https://peopleintheloop.app/n8n_0422)**
 
 New workflows from every event get added to this library.
 
-Sign up at [peopleintheloop.app/n8n_0422](https://peopleintheloop.app/n8n_0422) to get future workflows delivered to your inbox and access the full People in the Loop resource library.
+All files from this event are available at [peopleintheloop.app/n8n_0422](https://peopleintheloop.app/n8n_0422) — import-ready JSONs, the brand voice template, and setup instructions all in one place.
+
+Join People in the Loop at [peopleintheloop.app](https://peopleintheloop.app) to get new workflows from every event delivered to your inbox.
 
 ---
 
@@ -74,7 +80,7 @@ Sign up at [peopleintheloop.app/n8n_0422](https://peopleintheloop.app/n8n_0422) 
 **Nina Thomas**
 AI Strategist & Educator | n8n Community Ambassador | Miro Hero Ambassador
 Founder, People in the Loop
-[peopleintheloop.app](https://peopleintheloop.app) · connect@peopleintheloop.app · [linkedin.com/in/ninathomas](https://linkedin.com/in/ninathomas)
+[ninathomas.ai](https://ninathomas.ai) · connect@ninathomas.ai · [linkedin.com/in/ninathomas](https://linkedin.com/in/ninathomas)
 
 **Alicia Graham**
 AI Economist | n8n Ambassador

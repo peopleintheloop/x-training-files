@@ -1,0 +1,199 @@
+{
+  "name": "Level 2 · Brand Voice Content from RSS Feed",
+  "meta": {
+    "instanceId": "n8n-meetup-atlanta-2026-04-22",
+    "templateCredsSetupCompleted": false
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "feedUrl": "https://site.extension.uga.edu/peaches/feed/"
+      },
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "RSS Feed Trigger",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is a news article:\n\nHEADLINE: {{ $json.title }}\nSUMMARY: {{ $json.contentSnippet }}\nSOURCE: {{ $json.link }}\n\nWrite 3 social media posts based on this article. Format exactly like this:\n\n---INSTAGRAM---\n[Casual, engaging Instagram caption under 150 words. Include 5 relevant hashtags at the end.]\n\n---LINKEDIN---\n[Professional LinkedIn post under 200 words. Include 3 relevant hashtags.]\n\n---X/TWITTER---\n[Punchy tweet under 280 characters. Include 2 relevant hashtags.]\n\nWrite every post in the voice described in your system prompt. Do not break character.",
+        "messages": {
+          "messageValues": []
+        },
+        "batching": {}
+      },
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "name": "Write Social Posts",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "claude-sonnet-4-6"
+        },
+        "options": {
+          "maxTokensToSample": 1500,
+          "systemMessage": "You are a social media content writer with a specific brand voice.\n\n[PASTE YOUR COMPLETED BRAND VOICE PROMPT HERE]\n\nThis is the voice, tone, audience, and rules you follow for every post you write. Do not deviate from this voice. Do not sound generic. Every post should sound like it could only come from this specific person."
+        }
+      },
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "name": "Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [480, 500]
+    },
+    {
+      "parameters": {
+        "sendTo": "your@email.com",
+        "subject": "=New Content Ready (Your Voice): {{ $('RSS Feed Trigger').item.json.title }}",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#0c0c0c;padding:16px 20px;border-radius:8px 8px 0 0;\"><p style=\"color:#EA4B25;font-size:11px;text-transform:uppercase;margin:0 0 4px 0;\">People in the Loop · Level 2</p><h2 style=\"color:white;margin:0;\">Your Content is Ready</h2></div><div style=\"background:#f9f7f4;padding:16px;border:1px solid #e0dbd4;\"><p style=\"font-size:12px;color:#888;margin:0;\">Source article</p><p style=\"font-weight:bold;margin:4px 0;\">{{ $('RSS Feed Trigger').item.json.title }}</p><a href=\"{{ $('RSS Feed Trigger').item.json.link }}\" style=\"color:#EA4B25;font-size:12px;\">Read original</a></div><div style=\"padding:20px;border:1px solid #e0dbd4;border-top:none;background:white;\"><div style=\"white-space:pre-wrap;font-size:14px;line-height:1.8;\">{{ $json.text }}</div></div><p style=\"font-size:11px;color:#aaa;text-align:center;margin-top:16px;\">People in the Loop · ninathomas.ai</p></body></html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "d4e5f6a7-b8c9-0123-defa-234567890123",
+      "name": "Send Content Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [720, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## WELCOME · n8n Meetup Atlanta · April 22, 2026\n\nYou just imported the Level 2 workflow from the live build session.\n\nThis is the same workflow as Level 1, with one upgrade: the Claude Model node has a system prompt that writes every post in YOUR brand voice.\n\n──────────────────────────────\nGET EVERYTHING HERE:\npeopleintheloop.app/n8n_0422\n──────────────────────────────\n\nThat page has all 4 files from tonight, setup instructions, and the brand voice template you'll need to complete this workflow.\n\nBuilt by: Nina Thomas, n8n Community Ambassador\nPeople in the Loop · ninathomas.ai",
+        "height": 280,
+        "width": 440,
+        "color": 4
+      },
+      "id": "welcome-note-level2-0422",
+      "name": "Sticky Note — Welcome",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [100, 60]
+    },
+    {
+      "parameters": {
+        "content": "## LEVEL 2 · Brand Voice Content from RSS Feed\nCreated by: Nina Thomas | People in the Loop\nninathomas.ai | connect@ninathomas.ai\n\nPURPOSE: Same as Level 1 — but Claude writes every post in YOUR brand voice. The workflow is identical. The upgrade is in the system prompt inside the Claude Model node.\n\nSKILL LEVEL: Intermediate\nTOOLS: n8n · Claude · Gmail\n\nSETUP:\n1. Replace the RSS feed URL in the RSS Feed Trigger node\n2. Connect your Anthropic API key to the Claude Model node\n3. Open the Claude Model node and paste your completed brand voice prompt where it says [PASTE YOUR COMPLETED BRAND VOICE PROMPT HERE]\n4. Connect your Gmail account to the Send Content Email node\n5. Update the sendTo email address\n6. Click Test workflow to confirm it runs\n7. Compare the output to Level 1 — this is the difference brand voice makes\n8. Activate the workflow\n\nAll resources: peopleintheloop.app/n8n_0422\n\nBuilt live at: n8n Meetup Atlanta · April 22, 2026",
+        "height": 400,
+        "width": 520,
+        "color": 3
+      },
+      "id": "e5f6a7b8-c9d0-1234-efab-345678901234",
+      "name": "Sticky Note — Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [100, 550]
+    },
+    {
+      "parameters": {
+        "content": "## THE KEY DIFFERENCE\n\nLevel 1: Claude is a generic writer.\nLevel 2: Claude knows who you are.\n\nThe workflow structure is identical.\nThe only change is the system prompt in the Claude Model node.\n\nThat system prompt is your brand voice — your tone, your audience, your rules, your examples.\n\nFill out claude-brand-voice-prompt.md once. Paste it here. Every post after this sounds like you.",
+        "height": 260,
+        "width": 380,
+        "color": 7
+      },
+      "id": "f6a7b8c9-d0e1-2345-fabc-456789012345",
+      "name": "Sticky Note — The Insight",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [680, 550]
+    },
+    {
+      "parameters": {
+        "content": "## BEFORE YOU START\n\nSame credentials as Level 1:\n\n1. Anthropic API key → Claude Model node\n   Get yours: console.anthropic.com\n\n2. Google OAuth2 → Send Content Email node\n\nAND: Your completed brand voice prompt\n   Use: claude-brand-voice-prompt.md\n   Paste it into the Claude Model node system message field.",
+        "height": 240,
+        "width": 380,
+        "color": 1
+      },
+      "id": "a7b8c9d0-e1f2-3456-abcd-567890123456",
+      "name": "Sticky Note — Credentials",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [100, 1000]
+    },
+    {
+      "parameters": {
+        "content": "## NEXT STEPS\n\n──────────────────────────────\nALL FILES FROM TONIGHT:\npeopleintheloop.app/n8n_0422\n──────────────────────────────\n\nAt that URL you'll find:\n→ level1-rss-to-email.json (start here if you haven't)\n→ level2-brand-voice-rss-to-email.json (this file)\n→ claude-brand-voice-prompt.md (YOUR take-home challenge)\n→ claude-skill.md (bonus: turn Claude into your n8n assistant)\n\nYOUR TAKE-HOME CHALLENGE:\nFill out claude-brand-voice-prompt.md for your real brand.\nAll fields are labeled. Takes about 20 minutes.\nPaste it into the Claude Model node system message.\nYour workflow will sound like you — not a generic AI.\n\nJoin the community for the next workflow drop:\npeopleintheloop.app\n\nPeople in the Loop | ninathomas.ai",
+        "height": 380,
+        "width": 380,
+        "color": 5
+      },
+      "id": "b8c9d0e1-f2a3-4567-bcde-678901234567",
+      "name": "Sticky Note — Next Steps",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [680, 860]
+    }
+  ],
+  "connections": {
+    "RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "Write Social Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Social Posts": {
+      "main": [
+        [
+          {
+            "node": "Send Content Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write Social Posts",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "n8n-meetup-atlanta"
+    },
+    {
+      "name": "level-2"
+    },
+    {
+      "name": "brand-voice"
+    },
+    {
+      "name": "social-media"
+    }
+  ]
+}
