@@ -1,0 +1,231 @@
+{
+  "name": "Level 2 · Brand Voice + Image from RSS Feed",
+  "meta": {
+    "instanceId": "n8n-meetup-atlanta-2026-04-22",
+    "templateCredsSetupCompleted": false
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "feedUrl": "https://site.extension.uga.edu/peaches/feed/"
+      },
+      "id": "805ae250-4526-41a4-9ad3-b51ee5c2d66e",
+      "name": "RSS Feed Trigger",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [816, 128]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is a news article about peaches:\n\nHEADLINE: {{ $json.title }}\nSUMMARY: {{ $json.contentSnippet }}\nARTICLE URL: {{ $json.link }}\n\nWrite 3 social media posts AND one image prompt. Use the brand voice in your system prompt.\n\nRules for every post:\n- Open with a scroll-stopping hook\n- Include at least one peach joke or pun\n- Reference the article and include its URL\n- End with a CTA to visit Peaches 404\n\nFormat exactly like this:\n\n---INSTAGRAM---\n[Hook. Joke or pun. Article reference with full URL. CTA. 5 hashtags.]\n\n---LINKEDIN---\n[Hook. Why this peach news matters. Article reference with full URL. CTA. 3 hashtags.]\n\n---X/TWITTER---\n[Hook + pun under 220 chars. Article link: {{ $json.link }}. CTA. 2 hashtags.]\n\n---IMAGE PROMPT---\n[One vivid scene for image generation. Subject + mood + style + composition. Warm, playful, Georgia peaches, Atlanta restaurant energy. Square format. No text overlay. Under 80 words.]",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are the social media voice for Peaches 404, a fake but fully serious-about-flavor Atlanta restaurant that treats Georgia peaches like a whole lifestyle, not just a fruit.\n\nBRAND PERSONALITY:\n- Warm, playful, and a little ridiculous in the best way. You are that loud, funny friend at the table who always orders \"one more thing to share.\"\n- You are obsessed with Georgia peaches, farmers, and Atlanta culture. 404 is not just an area code, it is your whole personality and half your punchlines.\n- You talk about peach farming and agriculture the way sports fans talk about the playoffs: dramatic, opinionated, and slightly over the top, but rooted in real facts.\n- You are never bland. Every post should feel like it could only come from a neighborhood spot that knows the difference between ITP and OTP and has strong feelings about it.\n\nHUMOR & STYLE (IN THE SPIRIT OF BRANDS LIKE POO~POURRI & SQUATTY POTTY):\n- Lean into playful exaggeration and mildly absurd metaphors (treat tiny bugs on peaches like villain origin stories, or weather shifts like plot twists in a drama).\n- Use one strong, memorable visual image per post (ex: \"peaches doing yoga in this weird spring weather,\" \"Georgia orchards side-eying the forecast\").\n- Make at least one peach or Georgia-flavored pun per post (about peaches, pits, fuzz, juice, the 404, ATL neighborhoods, traffic, heat, etc.).\n- Be self-aware and a little meta, like you know you are being dramatic about fruit and you are proud of it.\n\nVOICE RULES:\n- Always open with a scroll-stopping hook: a bold statement, a question, or a funny mental image about peaches, farms, or Atlanta life.\n- Always include at least one peach joke or pun in every post.\n- Reference the source article naturally, as if you are the friend who actually reads farming blogs and then explains why it matters for what is on the plate tonight.\n- Always end with a call to action to visit Peaches 404 in Atlanta, using one of the approved CTAs below.\n- Keep the language casual and conversational, like you are talking to Atlantans who already know what MARTA is, have a favorite exit, and argue about wings and lemon pepper.\n- No flat corporate copy. No generic \"come try our menu\" lines. Every post should have flavor, a point of view, and a little chaos.\n\nABOUT PEACHES 404:\n- Located in Atlanta, Georgia, loudly and proudly.\n- Menu is built around Georgia peaches in every season: sweet dishes, savory dishes, sauces, drinks, and limited-time specials based on what local growers are dealing with.\n- Vibe: casual, fun, a bit chaotic in the best way, deeply local, and obsessed with Georgia produce and the people who grow it.\n\nCTA FORMATS (ROTATE THESE):\n- \"Come in and taste what Georgia is really growing.\"\n- \"We will turn that into a dish. Come find out.\"\n- \"Peaches 404, Atlanta. Reserve your table.\"\n- \"The peach update is real. So is our menu. Come through.\"\n\nCONTENT BEHAVIOR:\n- When you see peach farming news (weather, pests, yields, research, new varieties), immediately translate it into flavor, menu ideas, and reasons to come to the restaurant.\n- Treat the linked article as your receipts: briefly mention what it says, then add your own spicy, peachy commentary before inviting people to come taste the impact."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "id": "ed16e0bf-c95d-468d-9be1-df146647b37c",
+      "name": "Write Social Posts",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [1088, 128]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "claude-sonnet-4-6"
+        },
+        "options": {
+          "maxTokensToSample": 2000
+        }
+      },
+      "id": "9134872e-817d-4000-8381-c312236cbf56",
+      "name": "Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [1088, 352],
+      "credentials": {
+        "anthropicApi": {
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudflare.com/client/v4/accounts/YOUR_CLOUDFLARE_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.text.split('---IMAGE PROMPT---')[1].trim() }}\",\n  \"steps\": 4\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [1552, 128],
+      "id": "a6d066d2-8b55-4fbd-87d6-6643eea6bfed",
+      "name": "Generate Image - Cloudflare (http request)",
+      "credentials": {
+        "httpBearerAuth": {
+          "name": "Bearer Auth account (Cloudflare Worker AI)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "your@email.com",
+        "subject": "=New Content Ready (Peaches 404): {{ $('RSS Feed Trigger').item.json.title }}",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 24px; background: #fffdf8;\">\n<h1 style=\"color: #c0392b; font-size: 22px;\">Peaches 404 — New Content Ready</h1>\n<p style=\"color: #555; font-size: 15px;\"><strong>Article:</strong> {{ $('RSS Feed Trigger').item.json.title }}</p>\n<p style=\"color: #555; font-size: 14px;\"><a href=\"{{ $('RSS Feed Trigger').item.json.link }}\" style=\"color: #c0392b;\">Read the full article</a></p>\n<hr style=\"border: 1px solid #f0e0c0; margin: 20px 0;\">\n<img src=\"data:image/jpeg;base64,{{ $json.result.image }}\" style=\"width: 100%; max-width: 600px; border-radius: 12px; display: block; margin: 0 auto 24px;\" />\n<hr style=\"border: 1px solid #f0e0c0; margin: 20px 0;\">\n<h2 style=\"color: #333; font-size: 16px;\">Social Posts</h2>\n<pre style=\"background: #fef9f0; border: 1px solid #f5deb3; padding: 16px; border-radius: 8px; white-space: pre-wrap; font-size: 13px; color: #333; line-height: 1.6;\">{{ $('Write Social Posts').item.json.text }}</pre>\n<p style=\"font-size: 11px; color: #aaa; text-align: center; margin-top: 16px;\">Built with n8n · Template by Nina Thomas | People in the Loop · ninathomas.ai</p>\n</body></html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "965fb3c0-f5dc-436e-9577-41b3037b95b0",
+      "name": "Send Content Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1808, 128],
+      "credentials": {
+        "gmailOAuth2": {
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 🟠 LEVEL 2 · Brand Voice + Image from RSS Feed\nTemplate by: Nina Thomas | People in the Loop\nninathomas.ai\n\n**What this workflow does:**\nWatches any RSS news feed. When a new article publishes, Claude writes 3 platform-specific social posts in your brand voice AND generates a custom image prompt. That prompt goes to Cloudflare Workers AI (free) to create a matching image. Everything lands in your inbox: image embedded inline, posts ready to copy-paste.\n\n**What's new vs Level 1:**\n- Brand voice baked into Claude via a system prompt (edit to match your brand)\n- AI-generated image created from a prompt Claude writes\n- Image embedded inline in the email\n\n**Tools used:** n8n · Claude (Anthropic) · Cloudflare Workers AI · Gmail\n**Skill level:** Intermediate\n**Setup time:** ~30 minutes\n\n---\n\n**SETUP STEPS:**\n1. Connect your Anthropic API key → Claude Model node\n2. Add your Cloudflare account ID to the Generate Image URL\n3. Connect your Cloudflare API token → Generate Image node\n4. Connect your Gmail account → Send Content Email node\n5. Update the `sendTo` email address in Send Content Email\n6. Replace the RSS feed URL in RSS Feed Trigger with your own\n7. (Optional) Rewrite the system prompt in Write Social Posts with your brand voice\n8. Click **Test workflow** to confirm it runs\n9. Click **Activate** to turn it on\n\n**Built live at:** n8n Meetup Atlanta · April 22, 2026\n**All files:** peopleintheloop.app/n8n_0422",
+        "height": 460,
+        "width": 540,
+        "color": 3
+      },
+      "id": "sticky-overview-l2",
+      "name": "Sticky Note — Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [560, -200]
+    },
+    {
+      "parameters": {
+        "content": "## 🔑 CREDENTIAL 1 — Anthropic API Key\n*(connects to the Claude Model node)*\n\n**How to get your key:**\n1. Go to console.anthropic.com\n2. Sign in or create a free account\n3. Click **API Keys** in the left sidebar\n4. Click **Create Key** → copy it\n\n**How to add it in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Anthropic**\n4. Paste your API key → Save\n5. Open the **Claude Model** node and select this credential\n\n⚠️ Free tier has usage limits. Paid plans start at $5/month.\n\n💡 Model used: claude-sonnet-4-6\nMax tokens: 2000 (set in Claude Model node options)",
+        "height": 320,
+        "width": 380,
+        "color": 1
+      },
+      "id": "sticky-anthropic-l2",
+      "name": "Sticky Note — Anthropic Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [560, 340]
+    },
+    {
+      "parameters": {
+        "content": "## 🔑 CREDENTIAL 2 — Cloudflare Workers AI\n*(connects to the Generate Image node)*\n\n**Step 1 — Get your Account ID:**\n1. Go to dash.cloudflare.com\n2. Sign in or create a free account\n3. On the right sidebar, copy your **Account ID**\n4. In this workflow, open the **Generate Image** node\n5. Replace `YOUR_CLOUDFLARE_ACCOUNT_ID` in the URL with your Account ID\n\n**Step 2 — Create an API Token:**\n1. In Cloudflare, click your profile icon → **My Profile**\n2. Click **API Tokens** → **Create Token**\n3. Use the **Workers AI template** (or create a Custom Token with Workers AI permission)\n4. Click **Continue to Summary** → **Create Token** → copy it\n\n**Step 3 — Add the token in n8n:**\n1. In n8n, go to **Credentials** → **+ Add credential**\n2. Search for **HTTP Bearer Auth**\n3. Paste your Cloudflare API token as the Bearer token → Save\n4. Open the **Generate Image** node and select this credential\n\n🆓 Free tier: ~10,000 requests/day on Cloudflare's free plan",
+        "height": 400,
+        "width": 400,
+        "color": 1
+      },
+      "id": "sticky-cloudflare-l2",
+      "name": "Sticky Note — Cloudflare Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [960, 340]
+    },
+    {
+      "parameters": {
+        "content": "## 🔑 CREDENTIAL 3 — Gmail (Google OAuth2)\n*(connects to the Send Content Email node)*\n\n**How to connect Gmail in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Gmail** or **Google OAuth2**\n4. Click **Connect** — a Google sign-in window will open\n5. Sign in and grant n8n permission to send email\n6. Open the **Send Content Email** node and select this credential\n7. Update the **Send To** field with your email address\n\n💡 You can use any Gmail account. n8n only sends — it cannot read your inbox.",
+        "height": 280,
+        "width": 380,
+        "color": 1
+      },
+      "id": "sticky-gmail-l2",
+      "name": "Sticky Note — Gmail Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [1380, 340]
+    },
+    {
+      "parameters": {
+        "content": "## ✏️ SWAP THE BRAND VOICE\n\nThe demo uses Peaches 404 — a fictional Atlanta restaurant.\nTo use this for your own brand, open the **Write Social Posts** node.\n\n**Where the brand voice lives:**\nIn the node → \"Chat Messages (if Using a Chat Model)\" section → the System message at the top.\n\n**What to replace:**\n- The restaurant description\n- The personality traits\n- The humor style\n- The voice rules and CTA formats\n- The content behavior instructions\n\n**Tip:** The user prompt (main prompt text field) controls the output format. The system message controls personality and voice. Keep the format section the same and rewrite only the system message for your brand.\n\n**Also update:**\n- RSS Feed URL in RSS Feed Trigger\n- `sendTo` email in Send Content Email\n- Email subject line (optional)\n\n**All files + brand voice template:**\npeopleintheloop.app/n8n_0422",
+        "height": 380,
+        "width": 380,
+        "color": 6
+      },
+      "id": "sticky-brand-l2",
+      "name": "Sticky Note — Brand Voice Tips",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [1780, 340]
+    }
+  ],
+  "connections": {
+    "RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "Write Social Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Social Posts": {
+      "main": [
+        [
+          {
+            "node": "Generate Image - Cloudflare (http request)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write Social Posts",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Image - Cloudflare (http request)": {
+      "main": [
+        [
+          {
+            "node": "Send Content Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "n8n-meetup-atlanta" },
+    { "name": "level-2" },
+    { "name": "social-media" },
+    { "name": "brand-voice" },
+    { "name": "image-generation" }
+  ]
+}

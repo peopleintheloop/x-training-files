@@ -38,7 +38,6 @@ You may not compile these workflows into a paid template pack, automation librar
 
 If you want to use these workflows inside a paid course, consulting deliverable, or commercial product, reach out before you publish.
 
-connect@ninathomas.ai
 peopleintheloop.app
 
 We are open to partnerships, co-licensing, and attribution-based arrangements.

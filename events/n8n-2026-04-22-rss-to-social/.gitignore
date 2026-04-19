@@ -1,0 +1,30 @@
+# ── Presenter-only files ── not for public distribution
+PRESENTER-FAQ.md
+TRAINING-PLAN.md
+claude-brand-voice-prompt-404-demo.md
+
+# ── Brand assets ── not part of the public workflow library
+nina-headshot.jpg
+PITL-LOGO-Main-transparent.png
+PITL-LOGO-Main-white.png
+PITL-Logo-horizontal-transparent.png
+PITL-Logo-horizontal-white.png
+pitl-favicon.png
+pitl-favicon-white-180x180.png
+
+# ── Live demo workflow files ── built during session, may contain personal config
+n8n_workflows/level1-rss-to-email.json
+n8n_workflows/level2-brand-voice-rss-to-email.json
+
+# ── Event artifacts ── presentation deck, QR codes, host package
+n8n-meetup-atlanta-0422.pptx
+qr-n8n-0422.png
+n8n_0422_host_package/
+n8n_0422_host_package.zip
+
+# ── Unknown / temp files
+ziJBDEYu
+
+# ── OS / editor noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,188 @@
+{
+  "name": "Level 1 · Brand Content from RSS Feed",
+  "meta": {
+    "instanceId": "n8n-meetup-atlanta-2026-04-22",
+    "templateCredsSetupCompleted": false
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "feedUrl": "https://site.extension.uga.edu/peaches/feed/"
+      },
+      "id": "52884d5f-5e3b-426d-b7fa-73f087df26e8",
+      "name": "RSS Feed Trigger",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a social media content writer.\n\nHere is a news article:\n\nHEADLINE: {{ $json.title }}\nSUMMARY: {{ $json.contentSnippet }}\nSOURCE: {{ $json.link }}\n\nWrite 3 social media posts based on this article. Format exactly like this:\n\n---INSTAGRAM---\n[Casual, engaging Instagram caption under 150 words. Include 5 relevant hashtags at the end.]\n\n---LINKEDIN---\n[Professional LinkedIn post under 200 words. Include 3 relevant hashtags.]\n\n---X/TWITTER---\n[Punchy tweet under 280 characters. Include 2 relevant hashtags.]\n\nWrite each post to feel natural and human. Do not use corporate jargon.",
+        "messages": {
+          "messageValues": []
+        },
+        "batching": {}
+      },
+      "id": "34b80fa2-dbca-444e-aa34-2f12afc9e269",
+      "name": "Write Social Posts",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "claude-sonnet-4-6"
+        },
+        "options": {
+          "maxTokensToSample": 1500
+        }
+      },
+      "id": "faf781cc-ea1c-4156-9a00-3fa46a146747",
+      "name": "Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [480, 500]
+    },
+    {
+      "parameters": {
+        "sendTo": "your@email.com",
+        "subject": "=New Content Ready: {{ $('RSS Feed Trigger').item.json.title }}",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#0c0c0c;padding:16px 20px;border-radius:8px 8px 0 0;\"><p style=\"color:#EA4B25;font-size:11px;text-transform:uppercase;margin:0 0 4px 0;\">Content Automation</p><h2 style=\"color:white;margin:0;\">Your Content is Ready</h2></div><div style=\"background:#f9f7f4;padding:16px;border:1px solid #e0dbd4;\"><p style=\"font-size:12px;color:#888;margin:0;\">Source article</p><p style=\"font-weight:bold;margin:4px 0;\">{{ $('RSS Feed Trigger').item.json.title }}</p><a href=\"{{ $('RSS Feed Trigger').item.json.link }}\" style=\"color:#EA4B25;font-size:12px;\">Read original</a></div><div style=\"padding:20px;border:1px solid #e0dbd4;border-top:none;background:white;\"><div style=\"white-space:pre-wrap;font-size:14px;line-height:1.8;\">{{ $json.text }}</div></div><p style=\"font-size:11px;color:#aaa;text-align:center;margin-top:16px;\">Built with n8n · Template by Nina Thomas | People in the Loop · ninathomas.ai</p></body></html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "05ac6211-b4a0-4611-8727-6dd83d2d3853",
+      "name": "Send Content Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [720, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 🟠 LEVEL 1 · Brand Content from RSS Feed\nTemplate by: Nina Thomas | People in the Loop\nninathomas.ai\n\n**What this workflow does:**\nWatches any RSS news feed. Every time a new article is published, Claude writes 3 platform-specific social posts (Instagram, LinkedIn, X/Twitter) and delivers them to your inbox — ready to copy and paste.\n\n**Tools used:** n8n · Claude (Anthropic) · Gmail\n**Skill level:** Beginner\n**Setup time:** ~15 minutes\n\n---\n\n**SETUP STEPS:**\n1. Connect your Anthropic API key → Claude Model node\n2. Connect your Gmail account → Send Content Email node\n3. Update the `sendTo` email address in Send Content Email\n4. Replace the RSS feed URL in RSS Feed Trigger with your own\n5. Click **Test workflow** to confirm it runs\n6. Click **Activate** to turn it on\n\n**Built live at:** n8n Meetup Atlanta · April 22, 2026\n**All files:** peopleintheloop.app/n8n_0422",
+        "height": 380,
+        "width": 500,
+        "color": 3
+      },
+      "id": "18e6f6f2-6266-4753-b1b5-10349f41eaaa",
+      "name": "Sticky Note — Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [100, 580]
+    },
+    {
+      "parameters": {
+        "content": "## 🔑 CREDENTIAL 1 — Anthropic API Key\n*(connects to the Claude Model node)*\n\n**How to get your key:**\n1. Go to console.anthropic.com\n2. Sign in or create a free account\n3. Click **API Keys** in the left sidebar\n4. Click **Create Key** → copy it\n\n**How to add it in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Anthropic**\n4. Paste your API key → Save\n5. Open the **Claude Model** node and select this credential\n\n⚠️ Free tier has usage limits. Paid plans start at $5/month.",
+        "height": 280,
+        "width": 380,
+        "color": 1
+      },
+      "id": "sticky-anthropic-l1",
+      "name": "Sticky Note — Anthropic Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [100, 980]
+    },
+    {
+      "parameters": {
+        "content": "## 🔑 CREDENTIAL 2 — Gmail (Google OAuth2)\n*(connects to the Send Content Email node)*\n\n**How to connect Gmail in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Gmail** or **Google OAuth2**\n4. Click **Connect** — a Google sign-in window will open\n5. Sign in and grant n8n permission to send email\n6. Open the **Send Content Email** node and select this credential\n7. Update the **Send To** field with your email address\n\n💡 You can use any Gmail account. n8n only sends — it cannot read your inbox.",
+        "height": 260,
+        "width": 380,
+        "color": 1
+      },
+      "id": "sticky-gmail-l1",
+      "name": "Sticky Note — Gmail Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [500, 980]
+    },
+    {
+      "parameters": {
+        "content": "## 📡 RSS FEED — Swap Your Source\n\nThe demo uses the UGA Cooperative Extension Peach Blog:\n`site.extension.uga.edu/peaches/feed/`\n\n**To use your own feed:**\nOpen the **RSS Feed Trigger** node and replace the Feed URL.\n\n**Finding RSS feed URLs:**\n- WordPress blogs: `yoursite.com/feed`\n- Most blogs: `yoursite.com/rss` or `yoursite.com/rss.xml`\n- Industry publications: check the footer for an RSS icon\n- Or Google: `[publication name] RSS feed`\n\n**Polling interval:**\nCurrently set to every hour. You can change this to every 15 minutes, daily, or any schedule in the node settings.",
+        "height": 260,
+        "width": 380,
+        "color": 6
+      },
+      "id": "sticky-rss-l1",
+      "name": "Sticky Note — RSS Tips",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [900, 980]
+    },
+    {
+      "parameters": {
+        "content": "## ✅ READY FOR LEVEL 2?\n\nLevel 2 adds two upgrades:\n- Claude writes every post in **your brand's voice** (you define the personality, tone, and CTAs)\n- An **AI-generated image** is created for each article and embedded in the email\n\nGet the Level 2 file at:\n**peopleintheloop.app/n8n_0422**\n\nThat page also has:\n→ A brand voice prompt template to fill out\n→ Setup instructions for Cloudflare Workers AI (free image generation)\n→ The bonus Claude skill file\n\n---\nBuilt by Nina Thomas | n8n Community Ambassador\nPeople in the Loop · ninathomas.ai",
+        "height": 280,
+        "width": 380,
+        "color": 5
+      },
+      "id": "sticky-next-l1",
+      "name": "Sticky Note — Next Steps",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [1300, 980]
+    }
+  ],
+  "connections": {
+    "RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "Write Social Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Social Posts": {
+      "main": [
+        [
+          {
+            "node": "Send Content Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write Social Posts",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "n8n-meetup-atlanta" },
+    { "name": "level-1" },
+    { "name": "social-media" }
+  ]
+}
