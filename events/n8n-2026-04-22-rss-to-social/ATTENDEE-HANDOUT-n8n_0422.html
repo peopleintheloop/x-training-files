@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>n8n Meetup Atlanta · April 22, 2026 · Attendee Handout</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── Layout ── */
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9f7f4;
+    color: #1a1a1a;
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+  }
+
+  /* ── Left Nav ── */
+  .sidenav {
+    width: 200px;
+    min-width: 200px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: #0c0c0c;
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidenav-logo {
+    padding: 0 16px 20px 16px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 16px;
+  }
+  .sidenav-logo .brand {
+    color: #EA4B25;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .sidenav-logo .event {
+    color: #888;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  .nav-section-label {
+    color: #555;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    padding: 12px 16px 6px 16px;
+  }
+  .sidenav a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 7px 16px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    line-height: 1.3;
+  }
+  .sidenav a:hover {
+    color: white;
+    border-left-color: #EA4B25;
+    background: #1a1a1a;
+  }
+  .sidenav a.active {
+    color: white;
+    border-left-color: #EA4B25;
+    background: #1a1a1a;
+  }
+  .sidenav-footer {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid #2a2a2a;
+    color: #555;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+  .sidenav-footer a {
+    color: #EA4B25;
+    text-decoration: none;
+    display: inline;
+    padding: 0;
+    border: none;
+    font-size: 10px;
+  }
+  .sidenav-footer a:hover {
+    text-decoration: underline;
+    background: none;
+  }
+
+  /* ── Main content ── */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 40px;
+    max-width: 900px;
+  }
+
+  /* ── Section styles ── */
+  .content-section {
+    background: white;
+    border: 1px solid #e0dbd4;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: #0c0c0c;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .section-eyebrow {
+    color: #EA4B25;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+  }
+  .section-title {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .section-body {
+    padding: 20px;
+  }
+
+  /* ── Reference section ── */
+  .ref-sheet {
+    background: white;
+    border: 1px solid #e0dbd4;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .ref-header {
+    background: #0c0c0c;
+    color: white;
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ref-header-left p.eyebrow {
+    color: #EA4B25;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .ref-header-left h1 {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+  .ref-header-left h1 span { color: #EA4B25; font-style: italic; }
+  .ref-header-right {
+    text-align: right;
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.8;
+  }
+  .ref-subheader {
+    background: #EA4B25;
+    color: white;
+    padding: 8px 28px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ref-body {
+    padding: 24px 28px;
+  }
+  .ref-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 18px;
+  }
+  .section-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #EA4B25;
+    font-weight: bold;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid #EA4B25;
+  }
+  .workflow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 12px;
+  }
+  .workflow-node {
+    flex: 1;
+    background: #f9f7f4;
+    border: 1.5px solid #e0dbd4;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .workflow-node.level2 {
+    background: #fff3ef;
+    border-color: #EA4B25;
+  }
+  .workflow-node .node-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    color: #EA4B25;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .workflow-node .node-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #0c0c0c;
+    margin: 2px 0;
+  }
+  .workflow-node .node-desc {
+    font-size: 10px;
+    color: #666;
+  }
+  .arrow {
+    font-size: 16px;
+    color: #EA4B25;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+  .checklist {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0ebe4;
+    font-size: 12px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .step-num {
+    background: #EA4B25;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .links { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    background: #f9f7f4;
+    border: 1px solid #e0dbd4;
+    border-left: 3px solid #EA4B25;
+  }
+  .link-label {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #EA4B25;
+    letter-spacing: 0.5px;
+    min-width: 76px;
+  }
+  .link-url { font-size: 12px; color: #0c0c0c; font-weight: bold; }
+  .link-desc { font-size: 11px; color: #666; margin-left: auto; }
+  .file-list { list-style: none; margin-bottom: 12px; }
+  .file-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0ebe4;
+    font-size: 12px;
+  }
+  .file-list li:last-child { border-bottom: none; }
+  .file-name {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #0c0c0c;
+    font-weight: bold;
+    min-width: 210px;
+  }
+  .file-desc { color: #555; font-size: 11px; }
+  .insight-box {
+    background: #0c0c0c;
+    color: white;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .insight-box p { font-size: 13px; line-height: 1.6; }
+  .insight-box strong { color: #EA4B25; }
+  .ref-footer {
+    border-top: 2px solid #0c0c0c;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    background: #f9f7f4;
+  }
+  .ref-footer strong { color: #0c0c0c; }
+
+  /* ── Copy blocks ── */
+  .copy-block {
+    position: relative;
+    background: #0e0e0e;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .copy-block pre {
+    overflow-x: auto;
+    padding: 16px;
+    padding-top: 44px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #e0e0e0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .copy-block pre.expanded { max-height: none; }
+  .copy-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .copy-lang {
+    color: #888;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+  }
+  .copy-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-copy {
+    background: #EA4B25;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.5px;
+  }
+  .btn-copy:hover { background: #c73d1c; }
+  .btn-copy.copied { background: #2a7a4a; }
+  .btn-expand {
+    background: #2a2a2a;
+    color: #aaa;
+    border: none;
+    padding: 5px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+  }
+  .btn-expand:hover { background: #333; color: white; }
+
+  /* ── Explanation boxes ── */
+  .explain-box {
+    background: #f9f7f4;
+    border: 1px solid #e0dbd4;
+    border-left: 3px solid #EA4B25;
+    padding: 14px 16px;
+    margin-top: 12px;
+    border-radius: 0 4px 4px 0;
+  }
+  .explain-box h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #EA4B25;
+    margin-bottom: 8px;
+  }
+  .explain-box p {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .explain-box p:last-child { margin-bottom: 0; }
+  .explain-box ul {
+    margin: 6px 0 8px 16px;
+    font-size: 12px;
+    color: #444;
+    line-height: 1.7;
+  }
+  .where-to-paste {
+    display: inline-block;
+    background: #0c0c0c;
+    color: #EA4B25;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin: 2px 2px;
+  }
+
+  /* ── Page divider ── */
+  .page-divider {
+    border: none;
+    border-top: 2px dashed #e0dbd4;
+    margin: 32px 0;
+  }
+
+  /* ── Section anchor spacer ── */
+  .anchor-target {
+    display: block;
+    position: relative;
+    top: -20px;
+    visibility: hidden;
+  }
+
+  /* Digital-only — no print styles */
+</style>
+</head>
+<body>
+
+<!-- Left Navigation -->
+<nav class="sidenav">
+  <div class="sidenav-logo">
+    <span class="brand">n8n Meetup ATL</span>
+    <span class="event">April 22, 2026<br>People in the Loop</span>
+  </div>
+
+  <div class="nav-section-label">Overview</div>
+  <a href="#reference-sheet">Reference Sheet</a>
+  <a href="#workflows">Workflows We Built</a>
+  <a href="#setup">Setup Checklist</a>
+  <a href="#tools">Tools &amp; Links</a>
+
+  <div class="nav-section-label">Workflow Files</div>
+  <a href="#level1-json">Level 1 JSON</a>
+  <a href="#level2-json">Level 2 JSON</a>
+
+  <div class="nav-section-label">Claude Prompts</div>
+  <a href="#write-posts-prompt">Write Posts Prompt</a>
+  <a href="#brand-voice">Brand Voice Template</a>
+  <a href="#claude-skill">n8n Assistant Skill</a>
+
+  <div class="nav-section-label">Email</div>
+  <a href="#html-email">HTML Email Template</a>
+
+  <div class="nav-section-label">Next Event</div>
+  <a href="#next-event" style="color:#EA4B25;font-weight:bold;">Apr 25 · Coffee + AI</a>
+
+  <div style="margin:12px 16px 0;padding:10px 12px;background:#EA4B25;border-radius:3px;">
+    <p style="color:white;font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:bold;margin-bottom:3px;">Get All Files</p>
+    <a href="https://peopleintheloop.app/n8n_0422" style="color:white;font-size:11px;font-weight:bold;text-decoration:none;display:block;word-break:break-all;padding:0;border:none;background:none;">peopleintheloop.app/n8n_0422</a>
+  </div>
+
+  <div class="sidenav-footer">
+    <a href="https://ninathomas.ai">ninathomas.ai</a><br>
+    <a href="https://peopleintheloop.app">peopleintheloop.app</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+  <!-- ── REFERENCE SHEET ── -->
+  <span id="reference-sheet" class="anchor-target"></span>
+  <div class="ref-sheet">
+    <div class="ref-header">
+      <div class="ref-header-left">
+        <p class="eyebrow">n8n Meetup Atlanta · April 22, 2026</p>
+        <h1>"I Don't Know What to Post"<br><span>Fixed with Automation</span></h1>
+      </div>
+      <div class="ref-header-right">
+        <span style="color:#EA4B25;font-size:9px;text-transform:uppercase;letter-spacing:1px;">Host</span><br>
+        <strong style="color:white;font-size:13px;">Alicia Graham</strong><br>
+        <span style="color:#777;font-size:11px;">AI Economist · n8n Ambassador</span><br>
+        <span style="display:block;margin-top:8px;color:#EA4B25;font-size:9px;text-transform:uppercase;letter-spacing:1px;">Builder</span><br>
+        <strong style="color:white;font-size:13px;">Nina Thomas</strong><br>
+        <span style="color:#777;font-size:11px;">ninathomas.ai · peopleintheloop.app</span>
+      </div>
+    </div>
+    <div class="ref-subheader" style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:13px;">Your Resource Sheet</span>
+      <span>Download all files &rarr; <a href="https://peopleintheloop.app/n8n_0422" style="color:white;font-weight:bold;text-decoration:underline;font-size:13px;">peopleintheloop.app/n8n_0422</a></span>
+    </div>
+
+    <div class="ref-body">
+      <span id="workflows" class="anchor-target"></span>
+      <div style="margin-bottom:16px;">
+        <div class="section-label">The Two Workflows We Built Tonight</div>
+        <p style="font-size:12px;color:#555;margin-bottom:10px;">Level 1 is the foundation. Level 2 is the same workflow with one change that makes the output sound like you.</p>
+
+        <p style="font-size:11px;font-weight:bold;color:#0c0c0c;margin-bottom:6px;">LEVEL 1 · Beginner</p>
+        <div class="workflow">
+          <div class="workflow-node">
+            <div class="node-label">Trigger</div>
+            <div class="node-name">RSS Feed</div>
+            <div class="node-desc">Pulls new articles hourly</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="workflow-node">
+            <div class="node-label">AI</div>
+            <div class="node-name">Claude</div>
+            <div class="node-desc">Writes 3 posts: IG · LinkedIn · X</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="workflow-node">
+            <div class="node-label">Output</div>
+            <div class="node-name">Gmail</div>
+            <div class="node-desc">Sends email · copy &amp; paste ready</div>
+          </div>
+        </div>
+
+        <p style="font-size:11px;font-weight:bold;color:#EA4B25;margin-bottom:6px;margin-top:10px;">LEVEL 2 · The Upgrade</p>
+        <div class="workflow" style="font-size:11px;">
+          <div class="workflow-node">
+            <div class="node-label">Trigger</div>
+            <div class="node-name">RSS Feed</div>
+            <div class="node-desc">Same as Level 1</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="workflow-node level2">
+            <div class="node-label">Brand Voice + AI</div>
+            <div class="node-name">Claude</div>
+            <div class="node-desc">Your voice · writes image prompt</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="workflow-node level2">
+            <div class="node-label">NEW · Image Gen</div>
+            <div class="node-name">Cloudflare AI</div>
+            <div class="node-desc">Generates custom image</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="workflow-node">
+            <div class="node-label">Output</div>
+            <div class="node-name">Gmail</div>
+            <div class="node-desc">Posts + image in email</div>
+          </div>
+        </div>
+
+        <div class="insight-box" style="margin-top:10px;">
+          <p><strong>The upgrade:</strong> Level 2 adds two new nodes: a brand voice system prompt that trains Claude on your voice, and an AI image generator (Cloudflare Workers AI, free). Fill out the brand voice template once, paste it into the Claude node, and every post sounds like you. Every email gets a custom image.</p>
+        </div>
+        <div style="background:#f9f7f4;border:2px solid #EA4B25;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-top:12px;border-radius:4px;">
+          <div>
+            <p style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#EA4B25;font-weight:bold;margin-bottom:4px;">Download All Files · Free</p>
+            <p style="font-size:16px;font-weight:900;color:#0c0c0c;letter-spacing:-0.3px;">peopleintheloop.app/n8n_0422</p>
+            <p style="font-size:11px;color:#666;margin-top:3px;">Both workflow files · brand voice prompt · n8n assistant skill</p>
+          </div>
+          <a href="https://peopleintheloop.app/n8n_0422" style="display:inline-block;background:#EA4B25;color:white;padding:10px 22px;text-decoration:none;font-weight:bold;font-size:13px;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-left:16px;">Get the Files →</a>
+        </div>
+      </div>
+
+      <span id="setup" class="anchor-target"></span>
+      <div class="ref-columns">
+        <div>
+          <div class="section-label">Setup Checklist</div>
+          <p style="font-size:11px;color:#555;margin-bottom:8px;">Do this after you import the JSON into n8n.</p>
+          <ul class="checklist">
+            <li><div class="step-num">1</div><span>Sign up at <strong>n8n.io</strong> (free, no credit card)</span></li>
+            <li><div class="step-num">2</div><span>Get an Anthropic key at <strong>console.anthropic.com</strong></span></li>
+            <li><div class="step-num">3</div><span>n8n: <strong>Credentials → New → Anthropic API</strong> → paste key</span></li>
+            <li><div class="step-num">4</div><span>n8n: <strong>Credentials → New → Google OAuth2</strong> → sign in</span></li>
+            <li><div class="step-num">5</div><span>Workflows → + → <strong>Import from file</strong></span></li>
+            <li><div class="step-num">6</div><span>Update <strong>sendTo email</strong> in the Gmail node</span></li>
+            <li><div class="step-num">7</div><span>Click <strong>Test workflow</strong> → confirm email arrives</span></li>
+            <li><div class="step-num">8</div><span>Click <strong>Activate</strong> → you're live</span></li>
+          </ul>
+          <div class="section-label" style="margin-top:14px;">For Level 2 Only</div>
+          <ul class="checklist">
+            <li><div class="step-num">9</div><span>Sign up at <strong>cloudflare.com</strong> (free) · copy your Account ID</span></li>
+            <li><div class="step-num">10</div><span>Create a <strong>Cloudflare API Token</strong> → Workers AI template</span></li>
+            <li><div class="step-num">11</div><span>n8n: <strong>Credentials → New → HTTP Bearer Auth</strong> → paste token</span></li>
+            <li><div class="step-num">12</div><span>Open Generate Image node → paste your <strong>Cloudflare Account ID</strong> in the URL</span></li>
+            <li><div class="step-num">13</div><span>Download &amp; fill in the <strong>Brand Voice Prompt</strong> at peopleintheloop.app/n8n_0422</span></li>
+            <li><div class="step-num">14</div><span>Open Write Social Posts → <strong>Chat Messages → System</strong> → paste your brand voice</span></li>
+            <li><div class="step-num">15</div><span>Test again — email arrives with posts + custom image</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="section-label">Download All Files Free</div>
+          <div style="background:#EA4B25;padding:14px 16px;border-radius:4px;margin-bottom:12px;">
+            <p style="color:white;font-size:13px;font-weight:bold;margin-bottom:4px;">peopleintheloop.app/n8n_0422</p>
+            <p style="color:rgba(255,255,255,0.85);font-size:11px;">Level 1 + Level 2 workflow files · Brand Voice Prompt template · n8n Assistant Skill · HTML Email Starter</p>
+          </div>
+          <ul class="file-list">
+            <li><span class="file-name">level1-rss-to-email.json</span><span class="file-desc">Import → run immediately</span></li>
+            <li><span class="file-name">level2-brand-voice.json</span><span class="file-desc">Brand voice + AI image generation (Cloudflare)</span></li>
+            <li><span class="file-name">claude-brand-voice-prompt.md</span><span class="file-desc">Fill in once · paste into Claude node System Message</span></li>
+            <li><span class="file-name">html-email-reference.md</span><span class="file-desc">HTML email starter guide + tag reference</span></li>
+            <li><span class="file-name">claude-skill.md</span><span class="file-desc">Paste into claude.ai Project for an n8n build partner</span></li>
+          </ul>
+
+          <span id="tools" class="anchor-target"></span>
+          <div class="section-label" style="margin-top:14px;">Tools Used · All Free to Start</div>
+          <div class="links" style="gap:5px;">
+            <div class="link-row" style="border-left-color:#0c0c0c;"><span class="link-label" style="color:#0c0c0c;">n8n</span><span class="link-url">n8n.io</span><span class="link-desc">Free cloud account</span></div>
+            <div class="link-row"><span class="link-label">Anthropic</span><span class="link-url">console.anthropic.com</span><span class="link-desc">API key</span></div>
+            <div class="link-row" style="border-left-color:#4285f4;"><span class="link-label" style="color:#4285f4;">Gmail</span><span class="link-url">Any Google account</span><span class="link-desc">OAuth2 in n8n</span></div>
+            <div class="link-row" style="border-left-color:#f4821f;"><span class="link-label" style="color:#f4821f;">Cloudflare</span><span class="link-url">cloudflare.com</span><span class="link-desc">Free AI image gen (Level 2)</span></div>
+          </div>
+
+          <span id="download" class="anchor-target"></span>
+          <div class="section-label" style="margin-top:14px;">Get All Files</div>
+          <div class="links" style="gap:5px;">
+            <div class="link-row"><span class="link-label">Resources</span><span class="link-url"><a href="https://peopleintheloop.app/n8n_0422" style="color:#0c0c0c;text-decoration:none;font-weight:bold;">peopleintheloop.app/n8n_0422</a></span></div>
+            <div class="link-row"><span class="link-label">Community</span><span class="link-url">peopleintheloop.app</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-footer">
+      <div>
+        <span style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#EA4B25;">Builder</span><br>
+        <strong>Nina Thomas</strong> · n8n &amp; Miro Ambassador<br>
+        <span style="font-size:11px;">ninathomas.ai · peopleintheloop.app</span>
+      </div>
+      <div style="text-align:center;">
+        <a href="https://peopleintheloop.app/n8n_0422" style="display:inline-block;background:#EA4B25;color:white;padding:8px 18px;text-decoration:none;font-weight:bold;font-size:12px;border-radius:3px;letter-spacing:0.3px;">Get All Files &rarr;</a>
+        <p style="font-size:10px;color:#aaa;margin-top:4px;">peopleintheloop.app/n8n_0422</p>
+      </div>
+      <div style="text-align:right;">
+        <span style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#EA4B25;">Tonight's Event</span><br>
+        <strong>n8n Meetup Atlanta</strong><br>
+        <span style="font-size:11px;">April 22, 2026 · People in the Loop</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="text-align:center;padding:32px 0 40px;font-size:12px;color:#888;border-top:1px solid #e0dbd4;margin-top:8px;background:#f9f7f4;">
+    n8n Meetup Atlanta · April 22, 2026<br>
+    <a href="https://ninathomas.ai" style="color:#EA4B25;text-decoration:none;">ninathomas.ai</a> &nbsp;·&nbsp;
+    <a href="https://peopleintheloop.app" style="color:#EA4B25;text-decoration:none;">peopleintheloop.app</a>
+  </div>
+
+
+  <!-- ── LEVEL 1 SECTION DIVIDER ── -->
+  <div style="display:flex;align-items:center;gap:14px;margin:36px 0 20px;">
+    <div style="width:32px;height:32px;background:#0c0c0c;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <span style="color:white;font-size:10px;font-weight:bold;letter-spacing:0.5px;">L1</span>
+    </div>
+    <div>
+      <p style="font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#888;margin-bottom:2px;">Workflow Level</p>
+      <p style="font-size:16px;font-weight:900;color:#0c0c0c;line-height:1;">Level 1 &mdash; Prompts &amp; Files</p>
+    </div>
+    <div style="flex:1;height:2px;background:#e0dbd4;margin-left:8px;"></div>
+  </div>
+
+  <!-- ── WRITE POSTS PROMPT ── -->
+  <span id="write-posts-prompt" class="anchor-target"></span>
+  <div class="content-section">
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-eyebrow">Claude Prompt · Level 1 · Paste into Write Social Posts node</span>
+        <span class="section-title">Write Social Posts Prompt</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#555;margin-bottom:14px;">This is the user prompt inside the Write Social Posts node. It tells Claude what to write and how to format the output. You can swap in any topic or industry — just change the article fields and the platform instructions.</p>
+      <div class="copy-block">
+        <div class="copy-toolbar">
+          <span class="copy-lang">text · Write Social Posts → Prompt field</span>
+          <div class="copy-actions">
+            <button class="btn-copy" onclick="copyBlock('wp-pre', this)">Copy</button>
+          </div>
+        </div>
+        <pre id="wp-pre">You are a social media content writer.
+
+Here is a news article:
+
+HEADLINE: {{ $json.title }}
+SUMMARY: {{ $json.contentSnippet }}
+SOURCE: {{ $json.link }}
+
+Write 3 social media posts based on this article. Format exactly like this:
+
+---INSTAGRAM---
+[Casual, engaging Instagram caption under 150 words. Include 5 relevant hashtags at the end.]
+
+---LINKEDIN---
+[Professional LinkedIn post under 200 words. Include 3 relevant hashtags.]
+
+---X/TWITTER---
+[Punchy tweet under 280 characters. Include 2 relevant hashtags.]
+
+Write each post to feel natural and human. Do not use corporate jargon.</pre>
+      </div>
+      <div class="explain-box">
+        <h4>What this prompt does</h4>
+        <p>This is the instruction Claude receives every time a new article triggers the workflow. It passes three fields from the RSS feed — <span class="where-to-paste">title</span>, <span class="where-to-paste">contentSnippet</span>, and <span class="where-to-paste">link</span> — and tells Claude to write three posts in a specific format.</p>
+        <p><strong>Where to paste it:</strong> Open the Write Social Posts node → Prompt text field (top input). The <code style="background:#f0e0c0;padding:1px 5px;border-radius:2px;">{{ $json.title }}</code> syntax pulls live data from the RSS trigger at runtime.</p>
+        <p><strong>To customize:</strong> Change the platform list, adjust word counts, or add a new platform section. Keep the <code style="background:#f0e0c0;padding:1px 5px;border-radius:2px;">---PLATFORM---</code> separator format so the output stays predictable.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── LEVEL 2 SECTION DIVIDER ── -->
+  <div style="display:flex;align-items:center;gap:14px;margin:40px 0 20px;">
+    <div style="width:32px;height:32px;background:#EA4B25;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <span style="color:white;font-size:10px;font-weight:bold;letter-spacing:0.5px;">L2</span>
+    </div>
+    <div>
+      <p style="font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#EA4B25;margin-bottom:2px;">Workflow Level</p>
+      <p style="font-size:16px;font-weight:900;color:#0c0c0c;line-height:1;">Level 2 &mdash; Brand Voice + AI Image Generation</p>
+    </div>
+    <div style="flex:1;height:2px;background:#EA4B25;opacity:0.3;margin-left:8px;"></div>
+  </div>
+
+  <!-- ── BRAND VOICE PROMPT ── -->
+  <span id="brand-voice" class="anchor-target"></span>
+  <div class="content-section">
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-eyebrow">Claude Prompt · Level 2 · Paste into Write Social Posts → System Message</span>
+        <span class="section-title">Brand Voice System Prompt Template</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#555;margin-bottom:14px;">Fill in every section in brackets before pasting. The more specific you are, the more the output sounds like you.</p>
+      <div class="copy-block">
+        <div class="copy-toolbar">
+          <span class="copy-lang">text · Write Social Posts → Chat Messages → System</span>
+          <div class="copy-actions">
+            <button class="btn-expand" onclick="toggleExpand('bv-pre', this)">Expand</button>
+            <button class="btn-copy" onclick="copyBlock('bv-pre', this)">Copy</button>
+          </div>
+        </div>
+        <pre id="bv-pre">You are a social media content writer for [YOUR NAME OR BRAND NAME].
+
+**Who I am:**
+[2-3 sentences. Your role, your background, what you do. Be specific. Example: &quot;I&#x27;m a licensed nutritionist and founder of a meal prep subscription service in Nashville. I help busy parents eat well without spending hours in the kitchen. I&#x27;ve been in the wellness industry for 12 years.&quot;]
+
+**Who my audience is:**
+[Who reads your content? Be specific about demographics, interests, and what they&#x27;re trying to accomplish. Example: &quot;Parents aged 30-45 who care about health but have limited time. They&#x27;re not looking for perfection — they want practical.&quot;]
+
+**My tone and voice:**
+[Describe how you sound. Example: &quot;Warm and direct. I explain things clearly without talking down to people. I use humor when it fits but I don&#x27;t force it. I&#x27;m knowledgeable but never preachy.&quot;]
+
+**Words and phrases I use often:**
+[List 5-10 words or phrases that are distinctly yours. Example: &quot;real food, no-fuss, practical, feed your family well, Sunday prep, weeknight win&quot;]
+
+**Words and phrases I never use:**
+[List anything off-limits. Example: &quot;clean eating, detox, guilt-free, cheat meal, game-changer&quot;]
+
+**Topics I post about:**
+[List your main content pillars. Example: &quot;Meal prep strategies, budget grocery tips, quick dinner recipes, nutrition myths, behind-the-scenes of my business&quot;]
+
+**What I never post about:**
+[Any topics that are off-brand or off-limits.]
+
+**Formatting rules:**
+[How should posts be structured? Example: &quot;LinkedIn posts always open with a short hook, then a practical point, then end with a question. Instagram captions are conversational and end with a call to action.&quot;]
+
+**My call to action:**
+[What do you want people to do? Example: &quot;Follow me for weekly meal prep ideas. Link in bio for free weekly meal plan.&quot;]
+
+**Examples of posts I love (optional but powerful):**
+[Paste 1-3 real posts you&#x27;ve written that captured your voice well. This is the most useful thing you can add.]
+
+Example 1:
+[paste here]
+
+Example 2:
+[paste here]
+
+Example 3:
+[paste here]
+
+---
+
+RULES FOR EVERY POST:
+- Write in first person. This is my voice, not a brand voice.
+- Do not use corporate language or jargon.
+- Do not use urgency language (&quot;act now,&quot; &quot;limited time,&quot; &quot;don&#x27;t miss out&quot;).
+- Do not make claims I cannot back up.
+- Every post should feel like something I would actually say out loud.
+- Hashtags should be relevant and specific — not generic (#instagood, #content, #lifestyle).</pre>
+      </div>
+      <div class="explain-box">
+        <h4>What this prompt does</h4>
+        <p>This is the system message that defines who Claude is when it writes your posts. It's the difference between Level 1 (generic writer) and Level 2 (sounds like you).</p>
+        <p><strong>Where to paste it:</strong> Open the <strong>Write Social Posts</strong> node → scroll to "Chat Messages (if Using a Chat Model)" → click the <strong>System</strong> message field → replace the Peaches 404 restaurant demo text with your completed version.</p>
+        <p><strong>How to fill it out:</strong> Replace everything in [brackets] with your real information. The "Examples of posts I love" section at the bottom is optional but the single most useful thing you can add — paste 2-3 posts you've written that sounded right.</p>
+        <p><strong>After pasting:</strong> Run the workflow and compare the output to Level 1. The voice should be noticeably different.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CLAUDE SKILL ── -->
+  <span id="claude-skill" class="anchor-target"></span>
+  <div class="content-section">
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-eyebrow">Claude Project Prompt · Bonus Take-Home · Paste into claude.ai Project</span>
+        <span class="section-title">n8n Assistant Skill</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#555;margin-bottom:14px;">Paste this into a Claude Project at claude.ai to turn Claude into a personal n8n assistant that already knows your context and skill level.</p>
+      <div class="copy-block">
+        <div class="copy-toolbar">
+          <span class="copy-lang">text · claude.ai → Projects → New Project → Set Instructions</span>
+          <div class="copy-actions">
+            <button class="btn-expand" onclick="toggleExpand('cs-pre', this)">Expand</button>
+            <button class="btn-copy" onclick="copyBlock('cs-pre', this)">Copy</button>
+          </div>
+        </div>
+        <pre id="cs-pre">You are my personal n8n automation assistant. You help me build, debug, and improve n8n workflows.
+
+**My skill level:**
+I am a beginner to intermediate n8n user. I understand the basics — triggers, nodes, and how data flows between them. I&#x27;m still learning about expressions, data transformation, and more advanced nodes like Code and Set. Explain things clearly. Don&#x27;t assume I know advanced concepts unless I indicate otherwise.
+
+**How I use n8n:**
+I use n8n Cloud (not self-hosted). I primarily work with:
+- RSS triggers and schedule triggers
+- Claude / Anthropic API via the LangChain nodes
+- Gmail for output
+- HTTP Request nodes to connect to other services
+- Webhook triggers for forms and integrations
+
+**When I share a workflow question:**
+- If I paste an error message, help me understand what it means and what to fix.
+- If I describe what I want to build, map out the nodes I&#x27;d need before I start clicking.
+- If I share a workflow idea, point out any steps I might be missing.
+- Always tell me which node type to use and where to find it in n8n.
+
+**When I&#x27;m stuck:**
+- Ask me one clarifying question at a time, not five at once.
+- Walk me through the fix step by step.
+- If there are multiple ways to solve a problem, tell me the simplest one first, then mention alternatives.
+
+**What you know about my setup:**
+- I use Claude (claude-sonnet-4-5 or later) via the Anthropic LangChain nodes.
+- My Gmail is connected via Google OAuth2.
+- I have an Anthropic API key already configured as a credential in n8n.
+
+**Format rules:**
+- Be direct. I don&#x27;t need lengthy preambles.
+- When you give me node settings, list them clearly so I can follow along in the interface.
+- Use plain language. Avoid jargon unless you explain it.
+- Short answers first. I&#x27;ll ask follow-up questions if I need more.
+
+**Things I&#x27;m working on:**
+I attended the n8n Meetup Atlanta on April 22, 2026 where I built two workflows live:
+- Level 1: RSS Feed → Claude → Gmail (3 social posts per article)
+- Level 2: Same workflow with a brand voice system prompt added to Claude
+
+I want to expand from here. Help me think through what to automate next and how to build it.</pre>
+      </div>
+      <div class="explain-box">
+        <h4>What this does</h4>
+        <p>Creates a Claude Project that acts as your personal n8n build partner. Every conversation inside that project starts with Claude already knowing your setup, your skill level, and what you built at this event.</p>
+        <p><strong>How to set it up:</strong> Go to claude.ai → create a new Project in the left sidebar → click "Set instructions" → paste everything above → save. It's free if you already have a Claude account.</p>
+        <p><strong>Use this project when you want to:</strong> troubleshoot a workflow, ask "how do I do X in n8n?", plan a new automation, or debug an error message.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HTML EMAIL TEMPLATE ── -->
+  <span id="html-email" class="anchor-target"></span>
+  <div class="content-section">
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-eyebrow">HTML Template · Paste into Send Content Email node → Message field</span>
+        <span class="section-title">HTML Email Starter Template</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#555;margin-bottom:14px;">A clean styled email that replaces the plain text default. Change <code style="background:#f0e0c0;padding:1px 5px;border-radius:2px;">#EA4B25</code> to your brand color throughout.</p>
+      <div class="copy-block">
+        <div class="copy-toolbar">
+          <span class="copy-lang">html · Send Content Email node → Message field · set Email Type to HTML</span>
+          <div class="copy-actions">
+            <button class="btn-expand" onclick="toggleExpand('he-pre', this)">Expand</button>
+            <button class="btn-copy" onclick="copyBlock('he-pre', this)">Copy</button>
+          </div>
+        </div>
+        <pre id="he-pre">&lt;html&gt;
+&lt;body style=&quot;font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #222222; line-height: 1.6;&quot;&gt;
+
+  &lt;h2 style=&quot;color: #EA4B25; margin-top: 0;&quot;&gt;
+    New Content Ready: {{ $(&#x27;RSS Feed Trigger&#x27;).item.json.title }}
+  &lt;/h2&gt;
+
+  &lt;p&gt;
+    &lt;strong&gt;Article:&lt;/strong&gt;
+    &lt;a href=&quot;{{ $(&#x27;RSS Feed Trigger&#x27;).item.json.link }}&quot;&gt;
+      {{ $(&#x27;RSS Feed Trigger&#x27;).item.json.title }}
+    &lt;/a&gt;
+  &lt;/p&gt;
+
+  &lt;div style=&quot;background-color: #f5f5f5; border-left: 4px solid #EA4B25; padding: 12px 16px; margin: 16px 0; border-radius: 4px;&quot;&gt;
+    &lt;div style=&quot;white-space: pre-wrap; font-size: 14px; line-height: 1.8;&quot;&gt;{{ $json.text }}&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div style=&quot;margin-top: 32px; padding-top: 16px; border-top: 1px solid #E0DBD4; font-size: 12px; color: #888888;&quot;&gt;
+    Generated automatically by your n8n workflow.&lt;br&gt;
+    Built with n8n · ninathomas.ai · peopleintheloop.app
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div>
+      <div class="explain-box">
+        <h4>What this template does</h4>
+        <p>Replaces the default plain-text Gmail output with a styled HTML email — branded header, article link, and a formatted content block. No design tools needed.</p>
+        <p><strong>Where to paste it:</strong> Open the Send Content Email node → Message field → toggle Email Type to HTML → paste this template.</p>
+        <p><strong>The n8n expressions inside it pull live data:</strong></p>
+        <ul>
+          <li><span class="where-to-paste">&#123;&#123; $('RSS Feed Trigger').item.json.title &#125;&#125;</span> — article headline</li>
+          <li><span class="where-to-paste">&#123;&#123; $('RSS Feed Trigger').item.json.link &#125;&#125;</span> — article URL</li>
+          <li><span class="where-to-paste">&#123;&#123; $json.text &#125;&#125;</span> — Claude's full output (all three posts)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LEVEL 1 JSON ── -->
+  <span id="level1-json" class="anchor-target"></span>
+  <div class="content-section">
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-eyebrow">Workflow File · Import into n8n · Workflows → + → Import from file or clipboard</span>
+        <span class="section-title">Level 1 · RSS Feed → Claude → Gmail</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="copy-block">
+        <div class="copy-toolbar">
+          <span class="copy-lang">json · level1-rss-to-email-template.json</span>
+          <div class="copy-actions">
+            <button class="btn-expand" onclick="toggleExpand('l1-pre', this)">Expand</button>
+            <button class="btn-copy" onclick="copyBlock('l1-pre', this)">Copy</button>
+          </div>
+        </div>
+        <pre id="l1-pre">{
+  &quot;name&quot;: &quot;Level 1 · Brand Content from RSS Feed&quot;,
+  &quot;meta&quot;: {
+    &quot;instanceId&quot;: &quot;n8n-meetup-atlanta-2026-04-22&quot;,
+    &quot;templateCredsSetupCompleted&quot;: false
+  },
+  &quot;nodes&quot;: [
+    {
+      &quot;parameters&quot;: {
+        &quot;pollTimes&quot;: {
+          &quot;item&quot;: [
+            {
+              &quot;mode&quot;: &quot;everyHour&quot;
+            }
+          ]
+        },
+        &quot;feedUrl&quot;: &quot;https://site.extension.uga.edu/peaches/feed/&quot;
+      },
+      &quot;id&quot;: &quot;52884d5f-5e3b-426d-b7fa-73f087df26e8&quot;,
+      &quot;name&quot;: &quot;RSS Feed Trigger&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.rssFeedReadTrigger&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [240, 300]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;promptType&quot;: &quot;define&quot;,
+        &quot;text&quot;: &quot;=You are a social media content writer.\n\nHere is a news article:\n\nHEADLINE: {{ $json.title }}\nSUMMARY: {{ $json.contentSnippet }}\nSOURCE: {{ $json.link }}\n\nWrite 3 social media posts based on this article. Format exactly like this:\n\n---INSTAGRAM---\n[Casual, engaging Instagram caption under 150 words. Include 5 relevant hashtags at the end.]\n\n---LINKEDIN---\n[Professional LinkedIn post under 200 words. Include 3 relevant hashtags.]\n\n---X/TWITTER---\n[Punchy tweet under 280 characters. Include 2 relevant hashtags.]\n\nWrite each post to feel natural and human. Do not use corporate jargon.&quot;,
+        &quot;messages&quot;: {
+          &quot;messageValues&quot;: []
+        },
+        &quot;batching&quot;: {}
+      },
+      &quot;id&quot;: &quot;34b80fa2-dbca-444e-aa34-2f12afc9e269&quot;,
+      &quot;name&quot;: &quot;Write Social Posts&quot;,
+      &quot;type&quot;: &quot;@n8n/n8n-nodes-langchain.chainLlm&quot;,
+      &quot;typeVersion&quot;: 1.9,
+      &quot;position&quot;: [480, 300]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;model&quot;: {
+          &quot;__rl&quot;: true,
+          &quot;mode&quot;: &quot;id&quot;,
+          &quot;value&quot;: &quot;claude-sonnet-4-6&quot;
+        },
+        &quot;options&quot;: {
+          &quot;maxTokensToSample&quot;: 1500
+        }
+      },
+      &quot;id&quot;: &quot;faf781cc-ea1c-4156-9a00-3fa46a146747&quot;,
+      &quot;name&quot;: &quot;Claude Model&quot;,
+      &quot;type&quot;: &quot;@n8n/n8n-nodes-langchain.lmChatAnthropic&quot;,
+      &quot;typeVersion&quot;: 1.3,
+      &quot;position&quot;: [480, 500]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;sendTo&quot;: &quot;your@email.com&quot;,
+        &quot;subject&quot;: &quot;=New Content Ready: {{ $(&#x27;RSS Feed Trigger&#x27;).item.json.title }}&quot;,
+        &quot;emailType&quot;: &quot;html&quot;,
+        &quot;message&quot;: &quot;=&lt;html&gt;&lt;body style=\&quot;font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\&quot;&gt;&lt;div style=\&quot;background:#0c0c0c;padding:16px 20px;border-radius:8px 8px 0 0;\&quot;&gt;&lt;p style=\&quot;color:#EA4B25;font-size:11px;text-transform:uppercase;margin:0 0 4px 0;\&quot;&gt;Content Automation&lt;/p&gt;&lt;h2 style=\&quot;color:white;margin:0;\&quot;&gt;Your Content is Ready&lt;/h2&gt;&lt;/div&gt;&lt;div style=\&quot;background:#f9f7f4;padding:16px;border:1px solid #e0dbd4;\&quot;&gt;&lt;p style=\&quot;font-size:12px;color:#888;margin:0;\&quot;&gt;Source article&lt;/p&gt;&lt;p style=\&quot;font-weight:bold;margin:4px 0;\&quot;&gt;{{ $(&#x27;RSS Feed Trigger&#x27;).item.json.title }}&lt;/p&gt;&lt;a href=\&quot;{{ $(&#x27;RSS Feed Trigger&#x27;).item.json.link }}\&quot; style=\&quot;color:#EA4B25;font-size:12px;\&quot;&gt;Read original&lt;/a&gt;&lt;/div&gt;&lt;div style=\&quot;padding:20px;border:1px solid #e0dbd4;border-top:none;background:white;\&quot;&gt;&lt;div style=\&quot;white-space:pre-wrap;font-size:14px;line-height:1.8;\&quot;&gt;{{ $json.text }}&lt;/div&gt;&lt;/div&gt;&lt;p style=\&quot;font-size:11px;color:#aaa;text-align:center;margin-top:16px;\&quot;&gt;Built with n8n · Template by Nina Thomas | People in the Loop · ninathomas.ai&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;,
+        &quot;options&quot;: {
+          &quot;appendAttribution&quot;: false
+        }
+      },
+      &quot;id&quot;: &quot;05ac6211-b4a0-4611-8727-6dd83d2d3853&quot;,
+      &quot;name&quot;: &quot;Send Content Email&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.gmail&quot;,
+      &quot;typeVersion&quot;: 2.2,
+      &quot;position&quot;: [720, 300],
+      &quot;credentials&quot;: {
+        &quot;gmailOAuth2&quot;: {
+          &quot;name&quot;: &quot;Gmail account&quot;
+        }
+      }
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🟠 LEVEL 1 · Brand Content from RSS Feed\nTemplate by: Nina Thomas | People in the Loop\nninathomas.ai\n\n**What this workflow does:**\nWatches any RSS news feed. Every time a new article is published, Claude writes 3 platform-specific social posts (Instagram, LinkedIn, X/Twitter) and delivers them to your inbox — ready to copy and paste.\n\n**Tools used:** n8n · Claude (Anthropic) · Gmail\n**Skill level:** Beginner\n**Setup time:** ~15 minutes\n\n---\n\n**SETUP STEPS:**\n1. Connect your Anthropic API key → Claude Model node\n2. Connect your Gmail account → Send Content Email node\n3. Update the `sendTo` email address in Send Content Email\n4. Replace the RSS feed URL in RSS Feed Trigger with your own\n5. Click **Test workflow** to confirm it runs\n6. Click **Activate** to turn it on\n\n**Built live at:** n8n Meetup Atlanta · April 22, 2026\n**All files:** peopleintheloop.app/n8n_0422&quot;,
+        &quot;height&quot;: 380,
+        &quot;width&quot;: 500,
+        &quot;color&quot;: 3
+      },
+      &quot;id&quot;: &quot;18e6f6f2-6266-4753-b1b5-10349f41eaaa&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Overview&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [100, 580]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🔑 CREDENTIAL 1 — Anthropic API Key\n*(connects to the Claude Model node)*\n\n**How to get your key:**\n1. Go to console.anthropic.com\n2. Sign in or create a free account\n3. Click **API Keys** in the left sidebar\n4. Click **Create Key** → copy it\n\n**How to add it in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Anthropic**\n4. Paste your API key → Save\n5. Open the **Claude Model** node and select this credential\n\n⚠️ Free tier has usage limits. Paid plans start at $5/month.&quot;,
+        &quot;height&quot;: 280,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 1
+      },
+      &quot;id&quot;: &quot;sticky-anthropic-l1&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Anthropic Setup&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [100, 980]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🔑 CREDENTIAL 2 — Gmail (Google OAuth2)\n*(connects to the Send Content Email node)*\n\n**How to connect Gmail in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Gmail** or **Google OAuth2**\n4. Click **Connect** — a Google sign-in window will open\n5. Sign in and grant n8n permission to send email\n6. Open the **Send Content Email** node and select this credential\n7. Update the **Send To** field with your email address\n\n💡 You can use any Gmail account. n8n only sends — it cannot read your inbox.&quot;,
+        &quot;height&quot;: 260,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 1
+      },
+      &quot;id&quot;: &quot;sticky-gmail-l1&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Gmail Setup&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [500, 980]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 📡 RSS FEED — Swap Your Source\n\nThe demo uses the UGA Cooperative Extension Peach Blog:\n`site.extension.uga.edu/peaches/feed/`\n\n**To use your own feed:**\nOpen the **RSS Feed Trigger** node and replace the Feed URL.\n\n**Finding RSS feed URLs:**\n- WordPress blogs: `yoursite.com/feed`\n- Most blogs: `yoursite.com/rss` or `yoursite.com/rss.xml`\n- Industry publications: check the footer for an RSS icon\n- Or Google: `[publication name] RSS feed`\n\n**Polling interval:**\nCurrently set to every hour. You can change this to every 15 minutes, daily, or any schedule in the node settings.&quot;,
+        &quot;height&quot;: 260,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 6
+      },
+      &quot;id&quot;: &quot;sticky-rss-l1&quot;,
+      &quot;name&quot;: &quot;Sticky Note — RSS Tips&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [900, 980]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## ✅ READY FOR LEVEL 2?\n\nLevel 2 adds two upgrades:\n- Claude writes every post in **your brand&#x27;s voice** (you define the personality, tone, and CTAs)\n- An **AI-generated image** is created for each article and embedded in the email\n\nGet the Level 2 file at:\n**peopleintheloop.app/n8n_0422**\n\nThat page also has:\n→ A brand voice prompt template to fill out\n→ Setup instructions for Cloudflare Workers AI (free image generation)\n→ The bonus Claude skill file\n\n---\nBuilt by Nina Thomas | n8n Community Ambassador\nPeople in the Loop · ninathomas.ai&quot;,
+        &quot;height&quot;: 280,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 5
+      },
+      &quot;id&quot;: &quot;sticky-next-l1&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Next Steps&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [1300, 980]
+    }
+  ],
+  &quot;connections&quot;: {
+    &quot;RSS Feed Trigger&quot;: {
+      &quot;main&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Write Social Posts&quot;,
+            &quot;type&quot;: &quot;main&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    },
+    &quot;Write Social Posts&quot;: {
+      &quot;main&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Send Content Email&quot;,
+            &quot;type&quot;: &quot;main&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    },
+    &quot;Claude Model&quot;: {
+      &quot;ai_languageModel&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Write Social Posts&quot;,
+            &quot;type&quot;: &quot;ai_languageModel&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    }
+  },
+  &quot;active&quot;: false,
+  &quot;settings&quot;: {
+    &quot;executionOrder&quot;: &quot;v1&quot;
+  },
+  &quot;tags&quot;: [
+    { &quot;name&quot;: &quot;n8n-meetup-atlanta&quot; },
+    { &quot;name&quot;: &quot;level-1&quot; },
+    { &quot;name&quot;: &quot;social-media&quot; }
+  ]
+}</pre>
+      </div>
+      <div class="explain-box">
+        <h4>What this file is</h4>
+        <p>The complete Level 1 workflow exported as JSON. Import it and all four nodes open pre-wired — RSS Trigger, Write Social Posts, Claude Model, and Gmail.</p>
+        <p><strong>After importing:</strong> Connect your Anthropic credential to Claude Model, connect Gmail OAuth2 to Send Content Email, update the <span class="where-to-paste">sendTo</span> email address. Optionally swap the RSS feed URL. Then test and activate.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LEVEL 2 JSON ── -->
+  <span id="level2-json" class="anchor-target"></span>
+  <div class="content-section">
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-eyebrow">Workflow File · Import into n8n · Workflows → + → Import from file or clipboard</span>
+        <span class="section-title">Level 2 · Brand Voice + AI Image + Gmail</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;background:#fff8f0;border:1px solid #f5deb3;padding:10px 14px;border-radius:4px;margin-bottom:14px;color:#555;">
+        ⚠️ <strong>Before activating:</strong> Search this JSON for <code style="background:#f0e0c0;padding:1px 5px;border-radius:2px;">YOUR_CLOUDFLARE_ACCOUNT_ID</code> and replace it with your actual Cloudflare account ID. Setup instructions are in the sticky notes inside the workflow.
+      </p>
+      <div class="copy-block">
+        <div class="copy-toolbar">
+          <span class="copy-lang">json · level2-brand-voice-rss-to-email-template.json</span>
+          <div class="copy-actions">
+            <button class="btn-expand" onclick="toggleExpand('l2-pre', this)">Expand</button>
+            <button class="btn-copy" onclick="copyBlock('l2-pre', this)">Copy</button>
+          </div>
+        </div>
+        <pre id="l2-pre">{
+  &quot;name&quot;: &quot;Level 2 · Brand Voice + Image from RSS Feed&quot;,
+  &quot;meta&quot;: {
+    &quot;instanceId&quot;: &quot;n8n-meetup-atlanta-2026-04-22&quot;,
+    &quot;templateCredsSetupCompleted&quot;: false
+  },
+  &quot;nodes&quot;: [
+    {
+      &quot;parameters&quot;: {
+        &quot;pollTimes&quot;: {
+          &quot;item&quot;: [
+            {
+              &quot;mode&quot;: &quot;everyHour&quot;
+            }
+          ]
+        },
+        &quot;feedUrl&quot;: &quot;https://site.extension.uga.edu/peaches/feed/&quot;
+      },
+      &quot;id&quot;: &quot;805ae250-4526-41a4-9ad3-b51ee5c2d66e&quot;,
+      &quot;name&quot;: &quot;RSS Feed Trigger&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.rssFeedReadTrigger&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [816, 128]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;promptType&quot;: &quot;define&quot;,
+        &quot;text&quot;: &quot;=Here is a news article about peaches:\n\nHEADLINE: {{ $json.title }}\nSUMMARY: {{ $json.contentSnippet }}\nARTICLE URL: {{ $json.link }}\n\nWrite 3 social media posts AND one image prompt. Use the brand voice in your system prompt.\n\nRules for every post:\n- Open with a scroll-stopping hook\n- Include at least one peach joke or pun\n- Reference the article and include its URL\n- End with a CTA to visit Peaches 404\n\nFormat exactly like this:\n\n---INSTAGRAM---\n[Hook. Joke or pun. Article reference with full URL. CTA. 5 hashtags.]\n\n---LINKEDIN---\n[Hook. Why this peach news matters. Article reference with full URL. CTA. 3 hashtags.]\n\n---X/TWITTER---\n[Hook + pun under 220 chars. Article link: {{ $json.link }}. CTA. 2 hashtags.]\n\n---IMAGE PROMPT---\n[One vivid scene for image generation. Subject + mood + style + composition. Warm, playful, Georgia peaches, Atlanta restaurant energy. Square format. No text overlay. Under 80 words.]&quot;,
+        &quot;messages&quot;: {
+          &quot;messageValues&quot;: [
+            {
+              &quot;message&quot;: &quot;You are the social media voice for Peaches 404, a fake but fully serious-about-flavor Atlanta restaurant that treats Georgia peaches like a whole lifestyle, not just a fruit.\n\nBRAND PERSONALITY:\n- Warm, playful, and a little ridiculous in the best way. You are that loud, funny friend at the table who always orders \&quot;one more thing to share.\&quot;\n- You are obsessed with Georgia peaches, farmers, and Atlanta culture. 404 is not just an area code, it is your whole personality and half your punchlines.\n- You talk about peach farming and agriculture the way sports fans talk about the playoffs: dramatic, opinionated, and slightly over the top, but rooted in real facts.\n- You are never bland. Every post should feel like it could only come from a neighborhood spot that knows the difference between ITP and OTP and has strong feelings about it.\n\nHUMOR &amp; STYLE (IN THE SPIRIT OF BRANDS LIKE POO~POURRI &amp; SQUATTY POTTY):\n- Lean into playful exaggeration and mildly absurd metaphors (treat tiny bugs on peaches like villain origin stories, or weather shifts like plot twists in a drama).\n- Use one strong, memorable visual image per post (ex: \&quot;peaches doing yoga in this weird spring weather,\&quot; \&quot;Georgia orchards side-eying the forecast\&quot;).\n- Make at least one peach or Georgia-flavored pun per post (about peaches, pits, fuzz, juice, the 404, ATL neighborhoods, traffic, heat, etc.).\n- Be self-aware and a little meta, like you know you are being dramatic about fruit and you are proud of it.\n\nVOICE RULES:\n- Always open with a scroll-stopping hook: a bold statement, a question, or a funny mental image about peaches, farms, or Atlanta life.\n- Always include at least one peach joke or pun in every post.\n- Reference the source article naturally, as if you are the friend who actually reads farming blogs and then explains why it matters for what is on the plate tonight.\n- Always end with a call to action to visit Peaches 404 in Atlanta, using one of the approved CTAs below.\n- Keep the language casual and conversational, like you are talking to Atlantans who already know what MARTA is, have a favorite exit, and argue about wings and lemon pepper.\n- No flat corporate copy. No generic \&quot;come try our menu\&quot; lines. Every post should have flavor, a point of view, and a little chaos.\n\nABOUT PEACHES 404:\n- Located in Atlanta, Georgia, loudly and proudly.\n- Menu is built around Georgia peaches in every season: sweet dishes, savory dishes, sauces, drinks, and limited-time specials based on what local growers are dealing with.\n- Vibe: casual, fun, a bit chaotic in the best way, deeply local, and obsessed with Georgia produce and the people who grow it.\n\nCTA FORMATS (ROTATE THESE):\n- \&quot;Come in and taste what Georgia is really growing.\&quot;\n- \&quot;We will turn that into a dish. Come find out.\&quot;\n- \&quot;Peaches 404, Atlanta. Reserve your table.\&quot;\n- \&quot;The peach update is real. So is our menu. Come through.\&quot;\n\nCONTENT BEHAVIOR:\n- When you see peach farming news (weather, pests, yields, research, new varieties), immediately translate it into flavor, menu ideas, and reasons to come to the restaurant.\n- Treat the linked article as your receipts: briefly mention what it says, then add your own spicy, peachy commentary before inviting people to come taste the impact.&quot;
+            }
+          ]
+        },
+        &quot;batching&quot;: {}
+      },
+      &quot;id&quot;: &quot;ed16e0bf-c95d-468d-9be1-df146647b37c&quot;,
+      &quot;name&quot;: &quot;Write Social Posts&quot;,
+      &quot;type&quot;: &quot;@n8n/n8n-nodes-langchain.chainLlm&quot;,
+      &quot;typeVersion&quot;: 1.9,
+      &quot;position&quot;: [1088, 128]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;model&quot;: {
+          &quot;__rl&quot;: true,
+          &quot;mode&quot;: &quot;id&quot;,
+          &quot;value&quot;: &quot;claude-sonnet-4-6&quot;
+        },
+        &quot;options&quot;: {
+          &quot;maxTokensToSample&quot;: 2000
+        }
+      },
+      &quot;id&quot;: &quot;9134872e-817d-4000-8381-c312236cbf56&quot;,
+      &quot;name&quot;: &quot;Claude Model&quot;,
+      &quot;type&quot;: &quot;@n8n/n8n-nodes-langchain.lmChatAnthropic&quot;,
+      &quot;typeVersion&quot;: 1.3,
+      &quot;position&quot;: [1088, 352],
+      &quot;credentials&quot;: {
+        &quot;anthropicApi&quot;: {
+          &quot;name&quot;: &quot;Anthropic API&quot;
+        }
+      }
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;method&quot;: &quot;POST&quot;,
+        &quot;url&quot;: &quot;https://api.cloudflare.com/client/v4/accounts/YOUR_CLOUDFLARE_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell&quot;,
+        &quot;authentication&quot;: &quot;genericCredentialType&quot;,
+        &quot;genericAuthType&quot;: &quot;httpBearerAuth&quot;,
+        &quot;sendBody&quot;: true,
+        &quot;specifyBody&quot;: &quot;json&quot;,
+        &quot;jsonBody&quot;: &quot;={\n  \&quot;prompt\&quot;: \&quot;{{ $json.text.split(&#x27;---IMAGE PROMPT---&#x27;)[1].trim() }}\&quot;,\n  \&quot;steps\&quot;: 4\n}&quot;,
+        &quot;options&quot;: {}
+      },
+      &quot;type&quot;: &quot;n8n-nodes-base.httpRequest&quot;,
+      &quot;typeVersion&quot;: 4.4,
+      &quot;position&quot;: [1552, 128],
+      &quot;id&quot;: &quot;a6d066d2-8b55-4fbd-87d6-6643eea6bfed&quot;,
+      &quot;name&quot;: &quot;Generate Image - Cloudflare (http request)&quot;,
+      &quot;credentials&quot;: {
+        &quot;httpBearerAuth&quot;: {
+          &quot;name&quot;: &quot;Bearer Auth account (Cloudflare Worker AI)&quot;
+        }
+      }
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;sendTo&quot;: &quot;your@email.com&quot;,
+        &quot;subject&quot;: &quot;=New Content Ready (Peaches 404): {{ $(&#x27;RSS Feed Trigger&#x27;).item.json.title }}&quot;,
+        &quot;message&quot;: &quot;=&lt;html&gt;&lt;body style=\&quot;font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 24px; background: #fffdf8;\&quot;&gt;\n&lt;h1 style=\&quot;color: #c0392b; font-size: 22px;\&quot;&gt;Peaches 404 — New Content Ready&lt;/h1&gt;\n&lt;p style=\&quot;color: #555; font-size: 15px;\&quot;&gt;&lt;strong&gt;Article:&lt;/strong&gt; {{ $(&#x27;RSS Feed Trigger&#x27;).item.json.title }}&lt;/p&gt;\n&lt;p style=\&quot;color: #555; font-size: 14px;\&quot;&gt;&lt;a href=\&quot;{{ $(&#x27;RSS Feed Trigger&#x27;).item.json.link }}\&quot; style=\&quot;color: #c0392b;\&quot;&gt;Read the full article&lt;/a&gt;&lt;/p&gt;\n&lt;hr style=\&quot;border: 1px solid #f0e0c0; margin: 20px 0;\&quot;&gt;\n&lt;img src=\&quot;data:image/jpeg;base64,{{ $json.result.image }}\&quot; style=\&quot;width: 100%; max-width: 600px; border-radius: 12px; display: block; margin: 0 auto 24px;\&quot; /&gt;\n&lt;hr style=\&quot;border: 1px solid #f0e0c0; margin: 20px 0;\&quot;&gt;\n&lt;h2 style=\&quot;color: #333; font-size: 16px;\&quot;&gt;Social Posts&lt;/h2&gt;\n&lt;pre style=\&quot;background: #fef9f0; border: 1px solid #f5deb3; padding: 16px; border-radius: 8px; white-space: pre-wrap; font-size: 13px; color: #333; line-height: 1.6;\&quot;&gt;{{ $(&#x27;Write Social Posts&#x27;).item.json.text }}&lt;/pre&gt;\n&lt;p style=\&quot;font-size: 11px; color: #aaa; text-align: center; margin-top: 16px;\&quot;&gt;Built with n8n · Template by Nina Thomas | People in the Loop · ninathomas.ai&lt;/p&gt;\n&lt;/body&gt;&lt;/html&gt;&quot;,
+        &quot;options&quot;: {
+          &quot;appendAttribution&quot;: false
+        }
+      },
+      &quot;id&quot;: &quot;965fb3c0-f5dc-436e-9577-41b3037b95b0&quot;,
+      &quot;name&quot;: &quot;Send Content Email&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.gmail&quot;,
+      &quot;typeVersion&quot;: 2.2,
+      &quot;position&quot;: [1808, 128],
+      &quot;credentials&quot;: {
+        &quot;gmailOAuth2&quot;: {
+          &quot;name&quot;: &quot;Gmail account&quot;
+        }
+      }
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🟠 LEVEL 2 · Brand Voice + Image from RSS Feed\nTemplate by: Nina Thomas | People in the Loop\nninathomas.ai\n\n**What this workflow does:**\nWatches any RSS news feed. When a new article publishes, Claude writes 3 platform-specific social posts in your brand voice AND generates a custom image prompt. That prompt goes to Cloudflare Workers AI (free) to create a matching image. Everything lands in your inbox: image embedded inline, posts ready to copy-paste.\n\n**What&#x27;s new vs Level 1:**\n- Brand voice baked into Claude via a system prompt (edit to match your brand)\n- AI-generated image created from a prompt Claude writes\n- Image embedded inline in the email\n\n**Tools used:** n8n · Claude (Anthropic) · Cloudflare Workers AI · Gmail\n**Skill level:** Intermediate\n**Setup time:** ~30 minutes\n\n---\n\n**SETUP STEPS:**\n1. Connect your Anthropic API key → Claude Model node\n2. Add your Cloudflare account ID to the Generate Image URL\n3. Connect your Cloudflare API token → Generate Image node\n4. Connect your Gmail account → Send Content Email node\n5. Update the `sendTo` email address in Send Content Email\n6. Replace the RSS feed URL in RSS Feed Trigger with your own\n7. (Optional) Rewrite the system prompt in Write Social Posts with your brand voice\n8. Click **Test workflow** to confirm it runs\n9. Click **Activate** to turn it on\n\n**Built live at:** n8n Meetup Atlanta · April 22, 2026\n**All files:** peopleintheloop.app/n8n_0422&quot;,
+        &quot;height&quot;: 460,
+        &quot;width&quot;: 540,
+        &quot;color&quot;: 3
+      },
+      &quot;id&quot;: &quot;sticky-overview-l2&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Overview&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [560, -200]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🔑 CREDENTIAL 1 — Anthropic API Key\n*(connects to the Claude Model node)*\n\n**How to get your key:**\n1. Go to console.anthropic.com\n2. Sign in or create a free account\n3. Click **API Keys** in the left sidebar\n4. Click **Create Key** → copy it\n\n**How to add it in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Anthropic**\n4. Paste your API key → Save\n5. Open the **Claude Model** node and select this credential\n\n⚠️ Free tier has usage limits. Paid plans start at $5/month.\n\n💡 Model used: claude-sonnet-4-6\nMax tokens: 2000 (set in Claude Model node options)&quot;,
+        &quot;height&quot;: 320,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 1
+      },
+      &quot;id&quot;: &quot;sticky-anthropic-l2&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Anthropic Setup&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [560, 340]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🔑 CREDENTIAL 2 — Cloudflare Workers AI\n*(connects to the Generate Image node)*\n\n**Step 1 — Get your Account ID:**\n1. Go to dash.cloudflare.com\n2. Sign in or create a free account\n3. On the right sidebar, copy your **Account ID**\n4. In this workflow, open the **Generate Image** node\n5. Replace `YOUR_CLOUDFLARE_ACCOUNT_ID` in the URL with your Account ID\n\n**Step 2 — Create an API Token:**\n1. In Cloudflare, click your profile icon → **My Profile**\n2. Click **API Tokens** → **Create Token**\n3. Use the **Workers AI template** (or create a Custom Token with Workers AI permission)\n4. Click **Continue to Summary** → **Create Token** → copy it\n\n**Step 3 — Add the token in n8n:**\n1. In n8n, go to **Credentials** → **+ Add credential**\n2. Search for **HTTP Bearer Auth**\n3. Paste your Cloudflare API token as the Bearer token → Save\n4. Open the **Generate Image** node and select this credential\n\n🆓 Free tier: ~10,000 requests/day on Cloudflare&#x27;s free plan&quot;,
+        &quot;height&quot;: 400,
+        &quot;width&quot;: 400,
+        &quot;color&quot;: 1
+      },
+      &quot;id&quot;: &quot;sticky-cloudflare-l2&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Cloudflare Setup&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [960, 340]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## 🔑 CREDENTIAL 3 — Gmail (Google OAuth2)\n*(connects to the Send Content Email node)*\n\n**How to connect Gmail in n8n:**\n1. In n8n, go to **Credentials** (left sidebar)\n2. Click **+ Add credential**\n3. Search for **Gmail** or **Google OAuth2**\n4. Click **Connect** — a Google sign-in window will open\n5. Sign in and grant n8n permission to send email\n6. Open the **Send Content Email** node and select this credential\n7. Update the **Send To** field with your email address\n\n💡 You can use any Gmail account. n8n only sends — it cannot read your inbox.&quot;,
+        &quot;height&quot;: 280,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 1
+      },
+      &quot;id&quot;: &quot;sticky-gmail-l2&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Gmail Setup&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [1380, 340]
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;content&quot;: &quot;## ✏️ SWAP THE BRAND VOICE\n\nThe demo uses Peaches 404 — a fictional Atlanta restaurant.\nTo use this for your own brand, open the **Write Social Posts** node.\n\n**Where the brand voice lives:**\nIn the node → \&quot;Chat Messages (if Using a Chat Model)\&quot; section → the System message at the top.\n\n**What to replace:**\n- The restaurant description\n- The personality traits\n- The humor style\n- The voice rules and CTA formats\n- The content behavior instructions\n\n**Tip:** The user prompt (main prompt text field) controls the output format. The system message controls personality and voice. Keep the format section the same and rewrite only the system message for your brand.\n\n**Also update:**\n- RSS Feed URL in RSS Feed Trigger\n- `sendTo` email in Send Content Email\n- Email subject line (optional)\n\n**All files + brand voice template:**\npeopleintheloop.app/n8n_0422&quot;,
+        &quot;height&quot;: 380,
+        &quot;width&quot;: 380,
+        &quot;color&quot;: 6
+      },
+      &quot;id&quot;: &quot;sticky-brand-l2&quot;,
+      &quot;name&quot;: &quot;Sticky Note — Brand Voice Tips&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.stickyNote&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [1780, 340]
+    }
+  ],
+  &quot;connections&quot;: {
+    &quot;RSS Feed Trigger&quot;: {
+      &quot;main&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Write Social Posts&quot;,
+            &quot;type&quot;: &quot;main&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    },
+    &quot;Write Social Posts&quot;: {
+      &quot;main&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Generate Image - Cloudflare (http request)&quot;,
+            &quot;type&quot;: &quot;main&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    },
+    &quot;Claude Model&quot;: {
+      &quot;ai_languageModel&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Write Social Posts&quot;,
+            &quot;type&quot;: &quot;ai_languageModel&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    },
+    &quot;Generate Image - Cloudflare (http request)&quot;: {
+      &quot;main&quot;: [
+        [
+          {
+            &quot;node&quot;: &quot;Send Content Email&quot;,
+            &quot;type&quot;: &quot;main&quot;,
+            &quot;index&quot;: 0
+          }
+        ]
+      ]
+    }
+  },
+  &quot;active&quot;: false,
+  &quot;settings&quot;: {
+    &quot;executionOrder&quot;: &quot;v1&quot;
+  },
+  &quot;tags&quot;: [
+    { &quot;name&quot;: &quot;n8n-meetup-atlanta&quot; },
+    { &quot;name&quot;: &quot;level-2&quot; },
+    { &quot;name&quot;: &quot;social-media&quot; },
+    { &quot;name&quot;: &quot;brand-voice&quot; },
+    { &quot;name&quot;: &quot;image-generation&quot; }
+  ]
+}</pre>
+      </div>
+      <div class="explain-box">
+        <h4>What Level 2 adds over Level 1</h4>
+        <p><strong>Brand voice system prompt</strong> — Claude gets a full personality brief. The Peaches 404 demo is included as an example. Replace it with your completed Brand Voice Template above.</p>
+        <p><strong>AI image generation</strong> — Claude writes an image prompt as part of its output. That prompt goes to Cloudflare Workers AI (Flux model, free tier) which generates a matching image embedded inline in the email.</p>
+        <p><strong>Three credentials required:</strong> Anthropic API key, Cloudflare Bearer token, Gmail OAuth2. Sticky notes inside the workflow walk through each one step by step.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── NEXT STEPS ── -->
+  <span id="next-event" class="anchor-target"></span>
+  <div style="background:#0c0c0c;border-radius:6px;overflow:hidden;margin-top:48px;margin-bottom:8px;border:2px solid #EA4B25;">
+
+    <!-- Header bar -->
+    <div style="background:#EA4B25;padding:12px 28px;">
+      <p style="color:white;font-size:9px;text-transform:uppercase;letter-spacing:2px;font-weight:bold;margin:0;">What to do right now</p>
+    </div>
+
+    <!-- Two-column body -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+
+      <!-- Left: Next Event -->
+      <div style="padding:28px 28px;border-right:1px solid #2a2a2a;">
+        <p style="color:#EA4B25;font-size:9px;text-transform:uppercase;letter-spacing:1.5px;font-weight:bold;margin-bottom:10px;">Next Event · April 25, 2026</p>
+        <h2 style="color:white;font-size:22px;font-weight:900;line-height:1.2;margin-bottom:8px;">Coffee Conversations<br>&amp; AI Automations</h2>
+        <p style="color:#aaa;font-size:12px;margin-bottom:20px;line-height:1.6;">Come back Friday. Bring your laptop. We'll keep building.</p>
+
+        <div style="display:flex;align-items:flex-start;gap:16px;">
+          <div style="background:white;padding:8px;border-radius:4px;flex-shrink:0;">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVgAAAFYCAIAAACZDnMXAAAHGElEQVR4nO3dwY0juxVA0TvGpOAUHI3DdTROwUHIO+8Igx+kSPacs26USlLjggCfWL8+n0/An+1vp28AOE8IACEAhABICICEAEgIgIQASAiAhABICICEAEgIgIQASAiAhABICICEAEgIgIQASAiAhABICIDq96oL/eef/1h1qa3+/q9/T/396H2tus6s0evuvs/Z66y6/uzntvs+b7Pq/VoRAEIACAGQEAAJAZAQAAkB0MI5gpFV+5yzdu8Dn9rfnnXbfe6egxhZdf1XvsdZVgSAEABCACQEQEIAJARAQgD0hTmCkd2/zz9l9+/qV/2e/5Xf7d82BzHy+v+zFQEgBIAQAAkBkBAACQGQEAAdnCN43e793tl96VPPCzj1fIdZt82b3MaKABACQAiAhABICICEAEgIgMwR/M/u3/mfmjtYdR7BqbmDkd3v909jRQAIASAEQEIAJARAQgAkBEAH5whu29c9tc+/6ryAkVfO+T/1XIZVbrufWVYEgBAAQgAkBEBCACQEQEIA9IU5glPn2M96fb9693MQVt3PK38/8sr/8ywrAkAIACEAEgIgIQASAiAhAKpfn8/n9D1cYffv52evM7L7+q/z+fw1VgSAEABCACQEQEIAJARAQgB08LkGt+23z77u7t+3r9rfPjUfsfv6r3w+r8wpWBEAQgAIAZAQAAkBkBAACQHQD36uwSvn1Z/aZ949L7Dbbff5+nyBFQEgBIAQAAkBkBAACQGQEAAdfK7Bqufbr7L79+2vvK/b9r1XfZ67/37klfkCKwJACAAhABICICEAEgIgIQA6+FyDWaf2gWft3ge+7ZyFU5//7ucsnLrOyO65AysCQAgAIQASAiAhABICICEAOngewazb5gVGXp9fuO339rvvZ7fd92OOAFhGCAAhAIQASAiAhABICIC+MEdw237y7uvftu9923zBKqf+H247F8McAbCMEABCAAgBkBAACQGQEAB94bkGp54Pf9t+/k/1ynkEq66/+/92ZPf1rQgAIQCEAEgIgIQASAiAhADoC3MEI6/su77y+/NV11+1r77q719/TsTs9Ufva/f8ghUBIASAEAAJAZAQAAkBkBAALXyuwevnzM++7qzd5yy8cu7DKqfe76zdcxPmCIBlhAAQAkAIgIQASAiAhADo4HMNRk79bn/096vu/5Xz8F+Zm9ht1ff1yvMyrAgAIQCEAEgIgIQASAiAhADo4HkEs1btx+6+zqxT5wXsni94fY7g1P/Jqc/ZigAQAkAIgIQASAiAhABICIAWzhGssvvc/tv2pUdemS9Y9bojp/bhX3l+hDkCYBkhAIQAEAIgIQASAiAhADo4R3Dbfv7r5/nv3t8+tU9+ym2fz25WBIAQAEIAJARAQgAkBEBCAPSFOYLX97Ffuc+RU7+fX+W27/3U+Re7vxcrAkAIACEAEgIgIQASAiAhAKrfp174p+637z6Hf+SV8/Zvm1849VyD285fsCIAhAAQAiAhABICICEAEgKgg3MEt+1jr3rdkd1zB7vPUzhl9/2v+j98ZV5gxIoAEAJACICEAEgIgIQASAiALnyuwSvPF5h93ZFT5y+M7P6cT50T8cr3cupcBisCQAgAIQASAiAhABICICEA+sJ5BD/1vPpV9zOyag7iTzv3YWTVfd72nItV368VASAEgBAACQGQEAAJAZAQAD10HsHI7nMNRl6ZL3jleQe3nSMwcuo5BbvflxUBIASAEAAJAZAQAAkBkBAALZwjuG1/e/d5BKfOWVjllTmIWaf+H2bd9rlZEQBCAAgBkBAACQGQEAAJAdAXziMYeX3/dvf1T/2u/rb7f+U8hZHbPs8RKwJACAAhABICICEAEgIgIQA6OEdwm9efp3DqHIdZt13/ledcOI8A2E4IACEAhABICICEAEgIgOr3qgud+r33rNl911V/v/vzmd1n3v05zLrtfIHd+/an/k9GrAgAIQCEAEgIgIQASAiAhABo4RzByO7955Hd5wvMXmfV677y+/nZ1339fa1y6nWtCAAhAIQASAiAhABICICEAOgLcwQjr+z3zu7zv3L+/6zd8w6rrnPq+1pl95zFiBUBIASAEAAJAZAQAAkBkBAAHZwjuM2pfexV9/NTz1+YtXuuYdap8yZmWREAQgAIAZAQAAkBkBAACQGQOYL/65Vz+G973VNzAbvf1ytzELOsCAAhAIQASAiAhABICICEAOjgHMGp312PnDpHYLfb5h1WnQvw+rkDs9fZzYoAEAJACICEAEgIgIQASAiAvjBHcNvz52ed+t377D757v3z2+Y+Rm6b45h16nuxIgCEABACICEAEgIgIQASAqD69fl8Tt8DcJgVASAEgBAACQGQEAAJAZAQAAkBkBAACQGQEAAJAZAQAAkBkBAACQGQEAAJAZAQAAkBkBAACQGQEADVfwEim7hwZYXx7gAAAABJRU5ErkJggg==" alt="RSVP QR Code" width="120" height="120" style="display:block;">
+            <p style="font-size:8px;color:#666;text-align:center;margin-top:4px;font-family:Arial;">Scan to RSVP</p>
+          </div>
+          <div>
+            <a href="https://luma.com/i5dpfja0?tk=gGyI21" style="display:inline-block;background:#EA4B25;color:white;padding:12px 20px;text-decoration:none;font-weight:bold;font-size:13px;border-radius:3px;letter-spacing:0.3px;margin-bottom:8px;">RSVP Now &rarr;</a>
+            <p style="color:#555;font-size:10px;line-height:1.5;word-break:break-all;">luma.com/i5dpfja0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Get Files -->
+      <div style="padding:28px 28px;">
+        <p style="color:#EA4B25;font-size:9px;text-transform:uppercase;letter-spacing:1.5px;font-weight:bold;margin-bottom:10px;">Download All Files &mdash; Free</p>
+        <h2 style="color:white;font-size:22px;font-weight:900;line-height:1.2;margin-bottom:8px;">peopleintheloop.app<br>/n8n_0422</h2>
+        <p style="color:#aaa;font-size:12px;margin-bottom:20px;line-height:1.6;">Both workflow JSONs &middot; Brand Voice template &middot; n8n Assistant Skill &middot; HTML Email starter</p>
+
+        <div style="display:flex;align-items:flex-start;gap:16px;">
+          <div style="background:white;padding:8px;border-radius:4px;flex-shrink:0;">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVgAAAFYCAIAAACZDnMXAAAHEklEQVR4nO3dMW4sKRRA0evRpH//C/0L6AkmrgAJ/Cj7nNjC5W7rCgkKvj6fT8Dv9s/0AwDzhAAQAkAIgIQASAiAhABICICEAEgIgIQASAiAhABICICEAEgIgIQASAiAhABICICEAEgIgIQAqP7dNdCfP392DXXU379/l37+tr/r9PM/jb9rnCdP4+96nienxz9t9XN+YkYACAEgBEBCACQEQEIAJARAG/cRPNm1zrlqdR14at141+ez6/lX1/N3jb9q6v/qLf/Pq8wIACEAhABICICEAEgIgIQA6Bv2ETy5bT15ap1817r91Hv1q89/+jlPn5uw6/c+mdqnYEYACAEgBEBCACQEQEIAJARAg/sI3uL0Ovnb17FP34Nw2z6Fn8qMABACQAiAhABICICEAEgIgOwj2G513fu2+xR2Pf/qfoTbxvltzAgAIQCEAEgIgIQASAiAhABocB/Bbeu6p+8XWP35qfP5n0zdO7Bq6jyI2/6fV5kRAEIACAGQEAAJAZAQAAkB0DfsI/ip58lPvbc/dY7A1M8/mTp34Kf+P5sRAEIACAGQEAAJAZAQAAkBUH19Pp/pZ7jCrvXhqfP/V59n1U89R4D/mREAQgAIAZAQAAkBkBAACQHQ4L0Gq6bWsZ9Mreeffp//9O+97byA2/6uqX0TZgSAEABCACQEQEIAJARAQgC08TyC0+/bT52fv2ucVVPr0m8/l+G29fyp+y9WmREAQgAIAZAQAAkBkBAACQHQ4L0GU/sFbjvn/7ftFzg9zq7xT59P8WTqvgYzAkAIACEAEgIgIQASAiAhANp4r8Hb12NXn/+2denV8d9yzsLUPQ6nx9n1e3ftOzAjAIQAEAIgIQASAiAhABICoI37CKbWpZ9MnQ//ZOp5Tp8LMHWvxOlzHKb2g7jXABgjBIAQAEIAJARAQgAkBEAb9xGcdvr9/9vuR7htX8Yup8+JeMt5Frd9j2YEgBAAQgAkBEBCACQEQEIAVF+fz2fLQLvWUW9bn5+6v+C2z+HJ6XGeTD3n6fGnzsswIwCEABACICEAEgIgIQASAqAffK/BrvMIdv38Lqf3Hbz9Pfzbvsddn8Pp792MABACQAiAhABICICEAEgIgL7hPIJdbtun8OTt76U/ect+kNvuQZi6Z2GVGQEgBIAQAAkBkBAACQGQEAAN7iP4bevtt53/f9t5Ck/esj5/2+e8yowAEAJACICEAEgIgIQASAiANt5rsGrXuuvpdempdeann3/Lc/7U+wJu2yeyixkBIASAEAAJAZAQAAkBkBAAbTyP4O1uOxdg6nz+VbftL5j6nKf2v+xiRgAIASAEQEIAJARAQgAkBEDfcB7B6fXtXeu9t50L8GTqPILTdv1dP/WegtPPY0YACAEgBEBCACQEQEIAJARAG88juO396idT9yDctp9i1/irfuq5CbeNs8qMABACQAiAhABICICEAEgIgL7hPALr8LO/d+o8/9vOa3j793iaGQEgBIAQAAkBkBAACQGQEAB9wz6CVbedJ//2ewpW3Xa/wJOpfQ23fV+7mBEAQgAIAZAQAAkBkBAACQHQhfsIdjm93jt1X8Bt5zisOv38p/cL7Pq9t53vYEYACAEgBEBCACQEQEIAJARAg/sITq+fT40/tY495fTn9uTtn+dt5zuYEQBCAAgBkBAACQGQEAAJAVB9fT6f6Wc4Yte69NvPHfht6+1PbtuncNs9CGYEgBAAQgAkBEBCACQEQEIAdOE+gqn13tvuF7htnXnqc5sytS/DvQbAGCEAhAAQAiAhABICICEA2riP4Lb32J+85f3829bVn9y2P+It/4er3GsAHCcEgBAAQgAkBEBCACQEQBeeRzDltvftT5938GTX+/BveZ633JtwmhkBIASAEAAJAZAQAAkBkBAA1b+7BnrLe+BvP5f+tvXzn2pq38HU92JGAAgBIARAQgAkBEBCACQEQBv3ETyZWhc9/T786XFW9wWc3sex69yB28ZZHX/XOLftuzEjAIQAEAIgIQASAiAhABICoG/YR/DktvXeVbed2/9kar16av38tv0Xq+NP3Y9gRgAIASAEQEIAJARAQgAkBECD+whuc9t+hKlzEHatq992L8Bt91msjnOaGQEgBIAQAAkBkBAACQGQEADZRzBu1/r26fXn2/ZZ7Pr5qb/rydT3a0YACAEgBEBCACQEQEIAJARAg/sIblu/fXL6vfTT9xfctv5/+h6H03Y9/9R9E0/MCAAhAIQASAiAhABICICEAKi+Pp/PloFuWxd9MnXO/+n189Pv4Z9eJz+9Pn/bfoTT/1erzAgAIQCEAEgIgIQASAiAhABo4z4C4L3MCAAhAIQASAiAhABICICEAEgIgIQASAiAhABICICEAEgIgIQASAiAhABICICEAEgIgIQASAiAhACo/gOeE8RzuQBkXwAAAABJRU5ErkJggg==" alt="Download QR Code" width="110" height="110" style="display:block;">
+            <p style="font-size:8px;color:#666;text-align:center;margin-top:4px;font-family:Arial;">Scan to download</p>
+          </div>
+          <div>
+            <a href="https://peopleintheloop.app/n8n_0422" style="display:inline-block;background:white;color:#0c0c0c;padding:12px 20px;text-decoration:none;font-weight:bold;font-size:13px;border-radius:3px;letter-spacing:0.3px;margin-bottom:8px;">Get the Files &rarr;</a>
+            <p style="color:#555;font-size:10px;line-height:1.5;word-break:break-all;">peopleintheloop.app/n8n_0422</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer strip -->
+    <div style="background:#111;padding:12px 28px;border-top:1px solid #2a2a2a;">
+      <p style="color:#444;font-size:10px;text-align:center;margin:0;">n8n Meetup Atlanta &middot; Built with <a href="https://ninathomas.ai" style="color:#EA4B25;text-decoration:none;">ninathomas.ai</a> &middot; <a href="https://peopleintheloop.app" style="color:#EA4B25;text-decoration:none;">peopleintheloop.app</a></p>
+    </div>
+
+  </div>
+
+
+</main>
+
+<script>
+  function copyBlock(preId, btn) {
+    const pre = document.getElementById(preId);
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  function toggleExpand(preId, btn) {
+    const pre = document.getElementById(preId);
+    if (pre.classList.contains('expanded')) {
+      pre.classList.remove('expanded');
+      btn.textContent = 'Expand';
+    } else {
+      pre.classList.add('expanded');
+      btn.textContent = 'Collapse';
+    }
+  }
+
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('.anchor-target');
+  const navLinks = document.querySelectorAll('.sidenav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.getBoundingClientRect().top;
+      if (top <= 60) current = s.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
